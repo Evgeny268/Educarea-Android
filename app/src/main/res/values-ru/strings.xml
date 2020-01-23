@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">Educarea</string>
+    <string name="app_version">Версия</string>
+    <string name="sign_up">РЕГИСТРАЦИЯ</string>
+    <string name="log_in">ВХОД</string>
+    <string name="nickname">Никнейм</string>
+    <string name="password">Пароль</string>
+    <string name="next">Далее</string>
+    <string name="no_internet_connection">Нет интернет соединения</string>
+    <string name="try_again">Повторить попытку</string>
+    <string name="loginRequirement">Логин может включать в себя только латинские буквы, цифры и символ нижнего подчеркивания</string>
+    <string name="veryBigLogin">Длинна логина ограничена 255 символами</string>
+    <string name="veryBigPassword">Длинна пароля ограничена 255 символами</string>
+    <string name="reconnect_to_network">Переподключение к сети</string>
+    <string name="connected">Подключено</string>
+    <string name="userNotExist">Поьзователь с таким именем не существует</string>
+    <string name="userAlreadyExist">Пользователь с таким именем уже существует</string>
+    <string name="wrongPassword">Неверный пароль</string>
+    <string name="badLogin">Логин не соответстует требованиям</string>
+    <string name="badPassword">Пароль не соответствует требованиям</string>
+    <string name="error">Ошибка</string>
 </resources>

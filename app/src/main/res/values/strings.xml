@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">Educarea</string>
+    <string name="app_version">Version</string>
+    <string name="sign_up">SIGN UP</string>
+    <string name="log_in">LOG IN</string>
+    <string name="nickname">Nickname</string>
+    <string name="password">Password</string>
+    <string name="next">Next</string>
+    <string name="no_internet_connection">No internet connection</string>
+    <string name="try_again">Try again</string>
+    <string name="loginRequirement">Login can include only latin letters, numbers and underscore</string>
+    <string name="veryBigLogin">Login length is limited to 255 characters</string>
+    <string name="veryBigPassword">Password length is limited to 255 characters</string>
+    <string name="reconnect_to_network">Reconnect to network</string>
+    <string name="connected">Connected</string>
+    <string name="userNotExist">User with this name not exist</string>
+    <string name="userAlreadyExist">User with this name already exist</string>
+    <string name="wrongPassword">Wrong password</string>
+    <string name="badLogin">Login does not meet the requirements</string>
+    <string name="badPassword">Password does not meet the requirements</string>
+    <string name="error">Error</string>
 </resources>
