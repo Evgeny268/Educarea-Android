@@ -19,4 +19,5 @@
     <string name="badLogin">Логин не соответстует требованиям</string>
     <string name="badPassword">Пароль не соответствует требованиям</string>
     <string name="error">Ошибка</string>
+    <string name="moderator">Модератор</string>
 </resources>

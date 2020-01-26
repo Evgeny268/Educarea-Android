@@ -19,4 +19,5 @@
     <string name="badLogin">Login does not meet the requirements</string>
     <string name="badPassword">Password does not meet the requirements</string>
     <string name="error">Error</string>
+    <string name="moderator">Moderator</string>
 </resources>
