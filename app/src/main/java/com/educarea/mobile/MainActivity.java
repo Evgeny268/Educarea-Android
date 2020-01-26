@@ -64,6 +64,8 @@ public class MainActivity extends AppCompatActivity implements TypeRequestAnswer
                 if (in != null) {
                     if (in instanceof TransferRequestAnswer) {
                         if (((TransferRequestAnswer) in).request.equals(AUTHORIZATION_DONE)) {
+                            eduApp.userId = Integer.parseInt(((TransferRequestAnswer) in).extra);
+                            eduApp.userLogin = ((TransferRequestAnswer) in).extraArr[0];
                             startActivity(new Intent(MainActivity.this, GroupsListActivity.class));
                         }else if (((TransferRequestAnswer) in).request.equals(LOGOUT)){
                             eduApp.saveToken("");

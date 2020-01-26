@@ -20,4 +20,11 @@
     <string name="badPassword">Password does not meet the requirements</string>
     <string name="error">Error</string>
     <string name="moderator">Moderator</string>
+    <string name="invitations">Invitations</string>
+    <string name="role_student">role: Student</string>
+    <string name="role_teacher">role: Teacher</string>
+    <string name="group_adding">Group adding</string>
+    <string name="groupAlreadyExist">Group with this name already exist</string>
+    <string name="create">Create</string>
+    <string name="group_name">Group name</string>
 </resources>

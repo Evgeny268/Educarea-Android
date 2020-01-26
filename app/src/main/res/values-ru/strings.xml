@@ -20,4 +20,11 @@
     <string name="badPassword">Пароль не соответствует требованиям</string>
     <string name="error">Ошибка</string>
     <string name="moderator">Модератор</string>
+    <string name="invitations">Приглашения</string>
+    <string name="role_student">роль: Студент</string>
+    <string name="role_teacher">роль: Преподаватель</string>
+    <string name="group_adding">Создание группы</string>
+    <string name="groupAlreadyExist">Группа с таким именем уже существует</string>
+    <string name="create">Создать</string>
+    <string name="group_name">Название группы</string>
 </resources>

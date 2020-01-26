@@ -16,6 +16,7 @@ import java.io.StringWriter;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import transfers.Authorization;
 import transfers.TransferRequestAnswer;
 import transfers.Transfers;
 import transfers.TransfersFactory;
@@ -28,6 +29,8 @@ public class EduApp extends Application implements TypeRequestAnswer {
     public static final String APP_USER_CLOUD_TOKEN = "usercloudtoken";
     private String user_token = null;
     private InetWorker inetWorker = null;
+    public int userId = 0;
+    public String userLogin = null;
 
     @Override
     public void onCreate() {
@@ -98,6 +101,10 @@ public class EduApp extends Application implements TypeRequestAnswer {
             inetWorker.connect();
         }else if (data.equals(MessageListener.CONNECT_DONE)){
             Toast.makeText(context, context.getString(R.string.connected), Toast.LENGTH_SHORT).show();
+            if (user_token!=null){
+                Authorization authorization = new Authorization(user_token);
+                sendTransfers(authorization);
+            }
         }else if (data.equals(MessageListener.ERROR)){
             Toast.makeText(context, context.getString(R.string.error), Toast.LENGTH_SHORT).show();
         }else if (data.equals(MessageListener.CLOSING)){
@@ -122,6 +129,13 @@ public class EduApp extends Application implements TypeRequestAnswer {
                         Toast.makeText(context, context.getString(R.string.wrongPassword), Toast.LENGTH_SHORT).show();
                     }else if (((TransferRequestAnswer) input).request.equals(ERROR)){
                         Toast.makeText(context, context.getString(R.string.error), Toast.LENGTH_SHORT).show();
+                    }else if (((TransferRequestAnswer) input).request.equals(AUTHORIZATION_FAILURE)){
+                        if (user_token!=null){
+                            Authorization authorization = new Authorization(user_token);
+                            sendTransfers(authorization);
+                        }
+                    }else if(((TransferRequestAnswer) input).request.equals(GROUP_ALREADY_EXIST)){
+                        Toast.makeText(context, context.getString(R.string.groupAlreadyExist), Toast.LENGTH_SHORT).show();
                     }
                 }
             }
