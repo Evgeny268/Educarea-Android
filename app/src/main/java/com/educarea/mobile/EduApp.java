@@ -21,16 +21,17 @@ import transfers.TransferRequestAnswer;
 import transfers.Transfers;
 import transfers.TransfersFactory;
 import transfers.TypeRequestAnswer;
+import transfers.User;
 
 public class EduApp extends Application implements TypeRequestAnswer {
 
     public static final String APP_PREFERENCES = "mysettings";
     public static final String APP_USER_TOKEN = "usertoken";
     public static final String APP_USER_CLOUD_TOKEN = "usercloudtoken";
+    public static final String INTENT_GROUP = "INTENT_GROUP";
     private String user_token = null;
     private InetWorker inetWorker = null;
-    public int userId = 0;
-    public String userLogin = null;
+    public User user;
 
     @Override
     public void onCreate() {
@@ -136,6 +137,8 @@ public class EduApp extends Application implements TypeRequestAnswer {
                         }
                     }else if(((TransferRequestAnswer) input).request.equals(GROUP_ALREADY_EXIST)){
                         Toast.makeText(context, context.getString(R.string.groupAlreadyExist), Toast.LENGTH_SHORT).show();
+                    }else if (((TransferRequestAnswer) input).request.equals(YOU_ONLY_MODERATOR)){
+                        Toast.makeText(context, context.getString(R.string.you_only_moderator), Toast.LENGTH_SHORT).show();
                     }
                 }
             }

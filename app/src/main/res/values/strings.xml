@@ -27,4 +27,8 @@
     <string name="groupAlreadyExist">Group with this name already exist</string>
     <string name="create">Create</string>
     <string name="group_name">Group name</string>
+    <string name="timetable">Timetable</string>
+    <string name="members">Members</string>
+    <string name="leave_group">Leave the group</string>
+    <string name="you_only_moderator">You can\'t leave the group because you only moderator in there</string>
 </resources>

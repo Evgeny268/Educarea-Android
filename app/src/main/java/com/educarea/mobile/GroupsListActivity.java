@@ -9,17 +9,23 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.PopupMenu;
+import android.widget.Toast;
 
 import com.educarea.mobile.internet.MessageListener;
 
+import transfers.Group;
 import transfers.TransferRequestAnswer;
 import transfers.Transfers;
 import transfers.TransfersFactory;
 import transfers.TypeRequestAnswer;
 import transfers.UserGroups;
 
-public class GroupsListActivity extends AppCompatActivity implements MessageListener, TypeRequestAnswer {
+import static com.educarea.mobile.EduApp.INTENT_GROUP;
+
+public class GroupsListActivity extends AppCompatActivity implements MessageListener, TypeRequestAnswer, UserGroupsAdapter.MyGroupClickListener {
 
     private EduApp eduApp;
     private RecyclerView recyclerView;
@@ -38,7 +44,7 @@ public class GroupsListActivity extends AppCompatActivity implements MessageList
         manager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(manager);
         recyclerView.setHasFixedSize(false);
-        adapter = new UserGroupsAdapter(this,userGroups);
+        adapter = new UserGroupsAdapter(GroupsListActivity.this,userGroups);
         recyclerView.setAdapter(adapter);
     }
 
@@ -56,6 +62,12 @@ public class GroupsListActivity extends AppCompatActivity implements MessageList
                         userGroups.clear();
                         userGroups.add((UserGroups)in);
                         adapter.notifyDataSetChanged();
+                    }else if (in instanceof TransferRequestAnswer){
+                        if (((TransferRequestAnswer) in).request.equals(UPDATE_INFO)){
+                            eduApp.sendTransfers(new TransferRequestAnswer(GET_MY_GROUPS));
+                        }else {
+                            eduApp.standartReactionOnAsnwer(data, GroupsListActivity.this);
+                        }
                     }
                 }else {
                     eduApp.standartReactionOnAsnwer(data, GroupsListActivity.this);
@@ -73,6 +85,19 @@ public class GroupsListActivity extends AppCompatActivity implements MessageList
     }
 
     @Override
+    public void onClickMyGroup(int position, View view) {
+        Group group= userGroups.getGroup(position);
+        Intent intent = new Intent(GroupsListActivity.this, GroupMenuActivity.class);
+        intent.putExtra(INTENT_GROUP,group);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onLongClickMyGroup(int position, View view) {
+        showPopupMenu(view,position);
+    }
+
+    @Override
     public void onBackPressed() {
         Intent startMain = new Intent(Intent.ACTION_MAIN);
         startMain.addCategory(Intent.CATEGORY_HOME);
@@ -82,5 +107,24 @@ public class GroupsListActivity extends AppCompatActivity implements MessageList
 
     public void onClickAddGroup(View view) {
         startActivity(new Intent(GroupsListActivity.this, AddGroupActivity.class));
+    }
+
+    private void showPopupMenu(View v, final int position){
+        PopupMenu popupMenu = new PopupMenu(this,v);
+        popupMenu.inflate(R.menu.my_group_menu);
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.leave_group:
+                        Group group = userGroups.getGroup(position);
+                        TransferRequestAnswer out = new TransferRequestAnswer(LEAVE_GROUP,String.valueOf(group.groupId));
+                        eduApp.sendTransfers(out);
+                        return true;
+                }
+                return false;
+            }
+        });
+        popupMenu.show();
     }
 }

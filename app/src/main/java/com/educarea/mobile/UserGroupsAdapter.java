@@ -20,10 +20,12 @@ public class UserGroupsAdapter extends RecyclerView.Adapter {
 
     private Context mContext;
     private UserGroups userGroups;
+    private MyGroupClickListener myGroupClickListener;
 
     public UserGroupsAdapter(Context mContext, UserGroups userGroups) {
         this.mContext = mContext;
         this.userGroups = userGroups;
+        this.myGroupClickListener = (MyGroupClickListener) mContext;
     }
 
     public void setUserGroups(UserGroups userGroups) {
@@ -55,7 +57,7 @@ public class UserGroupsAdapter extends RecyclerView.Adapter {
         }else {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.my_groups_moderator,parent,false);
         }
-        return new MyGroupsHolder(view);
+        return new MyGroupsHolder(view, myGroupClickListener);
     }
 
     @Override
@@ -65,15 +67,19 @@ public class UserGroupsAdapter extends RecyclerView.Adapter {
         ((MyGroupsHolder) holder).bind(group, groupPerson);
     }
 
-    private class MyGroupsHolder extends RecyclerView.ViewHolder{
+    private class MyGroupsHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener{
 
         TextView viewGroupName;
         TextView viewRole;
+        MyGroupClickListener myGroupClickListener;
 
-        public MyGroupsHolder(@NonNull View itemView) {
+        public MyGroupsHolder(@NonNull View itemView, MyGroupClickListener myGroupClickListener) {
             super(itemView);
             viewGroupName = itemView.findViewById(R.id.my_group_name);
             viewRole = itemView.findViewById(R.id.my_group_role);
+            this.myGroupClickListener = myGroupClickListener;
+            itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
         }
 
         void bind(Group group, GroupPerson groupPerson){
@@ -84,5 +90,21 @@ public class UserGroupsAdapter extends RecyclerView.Adapter {
                 viewRole.setText(mContext.getString(R.string.role_teacher));
             }
         }
+
+        @Override
+        public void onClick(View v) {
+            myGroupClickListener.onClickMyGroup(getAdapterPosition(),v);
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            myGroupClickListener.onLongClickMyGroup(getAdapterPosition(),v);
+            return true;
+        }
+    }
+
+    public interface MyGroupClickListener{
+        void onClickMyGroup(int position, View view);
+        void onLongClickMyGroup(int position, View view);
     }
 }
