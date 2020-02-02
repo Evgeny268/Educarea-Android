@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context=".AddPersonActivity">
+
+    <EditText
+        android:id="@+id/viewTextSurname"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="32dp"
+        android:background="@color/nearWhite"
+        android:ems="10"
+        android:hint="@string/surname"
+        android:inputType="textPersonName"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:textColor="@color/colorPrimaryDark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/viewTextPatronymic"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:background="@color/nearWhite"
+        android:ems="10"
+        android:hint="@string/patronymic"
+        android:inputType="textPersonName"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:textColor="@color/colorPrimaryDark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewTextName" />
+
+    <EditText
+        android:id="@+id/viewTextName"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:background="@color/nearWhite"
+        android:ems="10"
+        android:hint="@string/name"
+        android:inputType="textPersonName"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:textColor="@color/colorPrimaryDark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewTextSurname" />
+
+    <RadioGroup
+        android:id="@+id/radioGroupRole"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewTextPatronymic">
+
+        <RadioButton
+            android:id="@+id/radioButtonStudent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/colorPrimaryDark"
+            android:text="@string/student"
+            android:textColor="@color/colorPrimaryDark" />
+
+        <RadioButton
+            android:id="@+id/radioButtonTeacher"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/colorPrimaryDark"
+            android:text="@string/teacher"
+            android:textColor="@color/colorPrimaryDark" />
+    </RadioGroup>
+
+    <CheckBox
+        android:id="@+id/checkBoxModerator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:buttonTint="@color/colorPrimaryDark"
+        android:text="@string/moderator"
+        android:textColor="@color/colorPrimaryDark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroupRole" />
+
+    <Button
+        android:id="@+id/buttonSavePerson"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/round_button"
+        android:onClick="onClickSavePerson"
+        android:padding="10dp"
+        android:text="@string/save"
+        android:textColor="@color/nearWhite"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkBoxModerator" />
+</androidx.constraintlayout.widget.ConstraintLayout>

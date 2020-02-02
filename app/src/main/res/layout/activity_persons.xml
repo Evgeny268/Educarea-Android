@@ -5,42 +5,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/nearWhite"
-    tools:context=".GroupsListActivity">
-
-    <Button
-        android:id="@+id/buttonInvations"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:onClick="onClickInvites"
-        android:text="@string/invitations"
-        android:textColor="@color/colorAccent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+    tools:context=".PersonsActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerMyGroups"
-        android:layout_width="match_parent"
+        android:id="@+id/recyclerPerson"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_margin="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/buttonInvations"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingButtonAddGroup"
+        android:id="@+id/btnAddPerson"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="24dp"
         android:clickable="true"
-
         android:focusable="true"
-        android:onClick="onClickAddGroup"
+        android:onClick="onClickAddPerson"
         android:scaleType="centerCrop"
-        app:layout_constraintBottom_toTopOf="@+id/buttonInvations"
-        app:layout_constraintEnd_toEndOf="@+id/recyclerMyGroups"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_add_black_24dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

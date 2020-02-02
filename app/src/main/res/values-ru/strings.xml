@@ -31,4 +31,15 @@
     <string name="members">Участники группы</string>
     <string name="leave_group">Покинуть группу</string>
     <string name="you_only_moderator">Вы не можете покинуть группу, поскольку вы единственный модератор в ней</string>
+    <string name="member">Участник</string>
+    <string name="no_permission">У вас нет прав на это действие</string>
+    <string name="surname">Фамилия</string>
+    <string name="name">Имя</string>
+    <string name="patronymic">Отчество</string>
+    <string name="teacher">Учитель</string>
+    <string name="student">Студент</string>
+    <string name="save">Сохранить</string>
+    <string name="done">Готово</string>
+    <string name="accept">Принять</string>
+    <string name="reject">Отклонить</string>
 </resources>

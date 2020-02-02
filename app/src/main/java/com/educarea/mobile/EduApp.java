@@ -29,9 +29,12 @@ public class EduApp extends Application implements TypeRequestAnswer {
     public static final String APP_USER_TOKEN = "usertoken";
     public static final String APP_USER_CLOUD_TOKEN = "usercloudtoken";
     public static final String INTENT_GROUP = "INTENT_GROUP";
+    public static final String INTENT_GROUP_PERSON = "INTENT_GROUP_PERSON";
+    public static final String INTENT_BACK = "INTENT_BACK";
     private String user_token = null;
     private InetWorker inetWorker = null;
     public User user;
+    public boolean moderator = false;
 
     @Override
     public void onCreate() {
@@ -139,6 +142,8 @@ public class EduApp extends Application implements TypeRequestAnswer {
                         Toast.makeText(context, context.getString(R.string.groupAlreadyExist), Toast.LENGTH_SHORT).show();
                     }else if (((TransferRequestAnswer) input).request.equals(YOU_ONLY_MODERATOR)){
                         Toast.makeText(context, context.getString(R.string.you_only_moderator), Toast.LENGTH_SHORT).show();
+                    }else if (((TransferRequestAnswer) input).request.equals(NO_PERMISSION)){
+                        Toast.makeText(context, context.getString(R.string.no_permission), Toast.LENGTH_SHORT).show();
                     }
                 }
             }

@@ -2,10 +2,12 @@ package com.educarea.mobile;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.view.View;
 import android.widget.TextView;
 
 import com.educarea.mobile.internet.MessageListener;
@@ -53,5 +55,17 @@ public class GroupMenuActivity extends AppCompatActivity implements MessageListe
     public void messageIncome(String message) {
         Message message1 = handler.obtainMessage(0,message);
         message1.sendToTarget();
+    }
+
+    public void onClickMembers(View view) {
+        Intent intent = new Intent(GroupMenuActivity.this, PersonsActivity.class);
+        intent.putExtra(INTENT_GROUP,group);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(GroupMenuActivity.this, GroupsListActivity.class);
+        startActivity(intent);
     }
 }

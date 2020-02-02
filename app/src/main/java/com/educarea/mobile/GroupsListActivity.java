@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.educarea.mobile.internet.MessageListener;
 
 import transfers.Group;
+import transfers.GroupPerson;
 import transfers.TransferRequestAnswer;
 import transfers.Transfers;
 import transfers.TransfersFactory;
@@ -87,6 +88,12 @@ public class GroupsListActivity extends AppCompatActivity implements MessageList
     @Override
     public void onClickMyGroup(int position, View view) {
         Group group= userGroups.getGroup(position);
+        GroupPerson groupPerson = userGroups.getGroupPerson(group);
+        if (groupPerson.moderator==1){
+            eduApp.moderator = true;
+        }else {
+            eduApp.moderator = false;
+        }
         Intent intent = new Intent(GroupsListActivity.this, GroupMenuActivity.class);
         intent.putExtra(INTENT_GROUP,group);
         startActivity(intent);
@@ -126,5 +133,9 @@ public class GroupsListActivity extends AppCompatActivity implements MessageList
             }
         });
         popupMenu.show();
+    }
+
+    public void onClickInvites(View view) {
+        startActivity(new Intent(GroupsListActivity.this,InviteActivity.class));
     }
 }

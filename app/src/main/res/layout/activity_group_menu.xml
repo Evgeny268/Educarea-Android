@@ -44,7 +44,7 @@
             android:text="@string/timetable" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/buttonOpenMembers"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginStart="40dp"
@@ -53,6 +53,7 @@
             android:layout_marginBottom="10dp"
             android:layout_weight="1"
             android:background="@color/nearWhite"
+            android:onClick="onClickMembers"
             android:text="@string/members"
             android:textColor="@color/colorPrimaryDark" />
     </LinearLayout>

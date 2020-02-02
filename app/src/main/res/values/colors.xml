@@ -5,4 +5,6 @@
     <color name="colorAccent">#D426D1</color>
     <color name="nearBlack">#240623</color>
     <color name="nearWhite">#D4D4D4</color>
+    <color name="extraOne">#5CA198</color>
+    <color name="extraTwo">#DBD0A9</color>
 </resources>
