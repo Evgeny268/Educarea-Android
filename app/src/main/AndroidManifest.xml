@@ -13,7 +13,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".BindActivity"></activity>
+        <activity android:name=".CompactTimetableActivity"></activity>
+        <activity android:name=".AllTimetableActivity" />
+        <activity android:name=".EditTimetableActivity" />
+        <activity android:name=".BindActivity" />
         <activity android:name=".InviteActivity" />
         <activity android:name=".PersonActivity" />
         <activity android:name=".AddPersonActivity" />

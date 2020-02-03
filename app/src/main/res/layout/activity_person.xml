@@ -71,12 +71,14 @@
         app:srcCompat="@drawable/ic_edit_black_24dp" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/buttonAccountUser"
         android:layout_width="177dp"
         android:layout_height="73dp"
         android:layout_marginBottom="32dp"
         android:onClick="onClickBindUser"
-        android:text="Привязка пользователя"
+        android:text="@string/user_account"
+        android:background="@color/colorAccent"
+        android:textColor="@color/nearWhite"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

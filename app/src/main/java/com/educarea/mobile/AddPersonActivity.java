@@ -67,9 +67,7 @@ public class AddPersonActivity extends AppInetActivity implements TypeRequestAns
             if (in instanceof TransferRequestAnswer){
                 if (((TransferRequestAnswer) in).request.equals(UPDATE_INFO)){
                     Toast.makeText(this, getString(R.string.done), Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(AddPersonActivity.this, PersonsActivity.class);
-                    intent.putExtra(INTENT_GROUP, group);
-                    startActivity(intent);
+                    onBackPressed();
                 }else eduApp.standartReactionOnAsnwer(message,AddPersonActivity.this);
             }else eduApp.standartReactionOnAsnwer(message,AddPersonActivity.this);
         }else {

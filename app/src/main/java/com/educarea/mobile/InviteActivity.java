@@ -1,10 +1,11 @@
 package com.educarea.mobile;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+
+import com.educarea.mobile.adapters.InviteAdapter;
 
 import transfers.MyInvite;
 import transfers.MyInvites;

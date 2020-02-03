@@ -12,8 +12,8 @@ import android.os.Message;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
-import android.widget.Toast;
 
+import com.educarea.mobile.adapters.UserGroupsAdapter;
 import com.educarea.mobile.internet.MessageListener;
 
 import transfers.Group;
@@ -41,6 +41,7 @@ public class GroupsListActivity extends AppCompatActivity implements MessageList
         setContentView(R.layout.activity_groups_list);
         userGroups = new UserGroups();
         eduApp = (EduApp)getApplicationContext();
+        eduApp.groupPersons = null;
         recyclerView = findViewById(R.id.recyclerMyGroups);
         manager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(manager);

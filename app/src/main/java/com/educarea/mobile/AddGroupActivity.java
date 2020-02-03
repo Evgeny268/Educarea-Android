@@ -45,6 +45,7 @@ public class AddGroupActivity extends AppCompatActivity implements MessageListen
                     if (in instanceof TransferRequestAnswer){
                         if (((TransferRequestAnswer) in).request.equals(GROUP_ADDED)){
                             startActivity(new Intent(AddGroupActivity.this, GroupsListActivity.class));
+                            finish();
                         }else eduApp.standartReactionOnAsnwer(data, AddGroupActivity.this);
                     }else eduApp.standartReactionOnAsnwer(data, AddGroupActivity.this);
                 }else eduApp.standartReactionOnAsnwer(data, AddGroupActivity.this);

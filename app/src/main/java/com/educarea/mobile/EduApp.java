@@ -17,6 +17,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 import transfers.Authorization;
+import transfers.GroupPersons;
 import transfers.TransferRequestAnswer;
 import transfers.Transfers;
 import transfers.TransfersFactory;
@@ -30,10 +31,14 @@ public class EduApp extends Application implements TypeRequestAnswer {
     public static final String APP_USER_CLOUD_TOKEN = "usercloudtoken";
     public static final String INTENT_GROUP = "INTENT_GROUP";
     public static final String INTENT_GROUP_PERSON = "INTENT_GROUP_PERSON";
+    public static final String INTENT_GROUP_PERSONS = "INTENT_GROUP_PERSONS";
     public static final String INTENT_BACK = "INTENT_BACK";
+    public static final String INTENT_TIMETABLE = "INTENT_TIMETABLE";
+
     private String user_token = null;
     private InetWorker inetWorker = null;
     public User user;
+    public GroupPersons groupPersons = null;
     public boolean moderator = false;
 
     @Override

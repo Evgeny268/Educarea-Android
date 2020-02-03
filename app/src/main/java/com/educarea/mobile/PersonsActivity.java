@@ -9,14 +9,19 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.PopupMenu;
 
+import com.educarea.mobile.adapters.GroupPersonAdapter;
 import com.educarea.mobile.internet.MessageListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import transfers.Group;
 import transfers.GroupPerson;
 import transfers.GroupPersons;
+import transfers.Timetable;
 import transfers.TransferRequestAnswer;
 import transfers.Transfers;
 import transfers.TransfersFactory;
@@ -110,13 +115,28 @@ public class PersonsActivity extends AppCompatActivity implements MessageListene
 
     @Override
     public void onLongClickGroupPerson(int position, View view) {
-
+        if (eduApp.moderator) {
+            showPopupMenu(view, position);
+        }
     }
 
-    @Override
-    public void onBackPressed() {
-        Intent intent = new Intent(PersonsActivity.this, GroupMenuActivity.class);
-        intent.putExtra(INTENT_GROUP,group);
-        startActivity(intent);
+
+    private void showPopupMenu(View v, final int position){
+        PopupMenu popupMenu = new PopupMenu(this,v);
+        popupMenu.inflate(R.menu.menu_delete);
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.menu_delete:
+                        GroupPerson groupPerson = persons.persons.get(position);
+                        TransferRequestAnswer out = new TransferRequestAnswer(DELETE_PERSON,String.valueOf(groupPerson.groupPersonId));
+                        eduApp.sendTransfers(out);
+                        return true;
+                }
+                return false;
+            }
+        });
+        popupMenu.show();
     }
 }

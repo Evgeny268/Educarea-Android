@@ -42,4 +42,27 @@
     <string name="done">Done</string>
     <string name="accept">Accept</string>
     <string name="reject">Reject</string>
+    <string name="without_teacher">Without teacher</string>
+    <string name="object_name">Object name</string>
+    <string name="day_of_week">Day of week</string>
+    <string name="sunday">Sunday</string>
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="saturday">Saturday</string>
+    <string name="every_week">Every week</string>
+    <string name="odd_week">Odd week</string>
+    <string name="even_week">Even week</string>
+    <string name="cabinet">Cabinet</string>
+    <string name="time">Time</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
+    <string name="subject_list">Subject list</string>
+    <string name="cancel_invitation">Cancel invitation</string>
+    <string name="untie_user">Untie user</string>
+    <string name="bind_user">Bind user</string>
+    <string name="user_account">User account</string>
+    <string name="delete_group">Delete group</string>
 </resources>

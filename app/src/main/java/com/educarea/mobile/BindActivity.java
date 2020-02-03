@@ -21,7 +21,6 @@ import static transfers.TypeRequestAnswer.GET_PERSON_INVITES;
 public class BindActivity extends AppInetActivity implements TypeRequestAnswer {
 
     private GroupPerson groupPerson;
-    private TextView textStatus;
     private EditText inviteUserName;
     private Button sendInvite;
 
@@ -39,7 +38,6 @@ public class BindActivity extends AppInetActivity implements TypeRequestAnswer {
         setContentView(R.layout.activity_bind);
         groupPerson = (GroupPerson) getIntent().getSerializableExtra(INTENT_GROUP_PERSON);
         if (groupPerson == null) onBackPressed();
-        textStatus = findViewById(R.id.bindStatusText);
         inviteUserName = findViewById(R.id.editTextInviteUserName);
         sendInvite = findViewById(R.id.buttonBindUser);
     }
@@ -80,15 +78,15 @@ public class BindActivity extends AppInetActivity implements TypeRequestAnswer {
     private void setInterface(){
         switch (mode){
             case BIND_USER:
-                sendInvite.setText("Привязать пользователя");
+                sendInvite.setText(getString(R.string.bind_user));
                 inviteUserName.setVisibility(View.VISIBLE);
                 break;
             case UNBIND_USER:
-                sendInvite.setText("Отвязать пользователя");
+                sendInvite.setText(getString(R.string.untie_user));
                 inviteUserName.setVisibility(View.GONE);
                 break;
             case REJECT_INVITE:
-                sendInvite.setText("Отменить заявку");
+                sendInvite.setText(getString(R.string.cancel_invitation));
                 inviteUserName.setVisibility(View.GONE);
         }
     }
