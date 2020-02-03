@@ -113,11 +113,7 @@ public class EditTimetableActivity extends AppInetActivity implements TypeReques
         if (in!=null){
             if (in instanceof TransferRequestAnswer){
                 if (((TransferRequestAnswer) in).request.equals(UPDATE_INFO)){
-                    Intent intent = new Intent(EditTimetableActivity.this, AllTimetableActivity.class);
-                    intent.putExtra(INTENT_GROUP,group);
-                    intent.putExtra(INTENT_GROUP_PERSONS,groupPersons);
-                    startActivity(intent);
-                    finish();
+                    onBackPressed();
                 }else eduApp.standartReactionOnAsnwer(message,EditTimetableActivity.this);
             }else eduApp.standartReactionOnAsnwer(message,EditTimetableActivity.this);
         }else eduApp.standartReactionOnAsnwer(message,EditTimetableActivity.this);
