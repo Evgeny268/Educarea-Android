@@ -65,4 +65,8 @@
     <string name="bind_user">Привязать пользователя</string>
     <string name="user_account">Аккаунт пользователя</string>
     <string name="delete_group">Удалить группу</string>
+    <string name="enter_your_message">Введите ваше сообщение</string>
+    <string name="copy_to_clip_board">Скопировано в буфер обмена</string>
+    <string name="channel">Канал новостей</string>
+    <string name="no_invites">Нет приглашений</string>
 </resources>

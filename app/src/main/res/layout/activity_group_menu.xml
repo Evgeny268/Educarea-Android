@@ -59,6 +59,20 @@
             android:textColor="@color/colorPrimaryDark" />
 
         <Button
+            android:id="@+id/buttonOpenChannel"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:background="@color/nearWhite"
+            android:onClick="onClickOpenChannel"
+            android:text="@string/channel"
+            android:textColor="@color/colorPrimaryDark" />
+
+        <Button
             android:id="@+id/buttonDeleteGroup"
             android:layout_width="match_parent"
             android:layout_height="60dp"

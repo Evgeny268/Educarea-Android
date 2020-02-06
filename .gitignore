@@ -11,5 +11,6 @@
 /build
 /captures
 /app/src/main/res/values/settings_constant.xml
+/app/release/
 .externalNativeBuild
 .cxx

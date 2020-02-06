@@ -65,4 +65,8 @@
     <string name="bind_user">Bind user</string>
     <string name="user_account">User account</string>
     <string name="delete_group">Delete group</string>
+    <string name="enter_your_message">Enter your message</string>
+    <string name="copy_to_clip_board">Copy to clip board</string>
+    <string name="channel">Channel</string>
+    <string name="no_invites">No invites</string>
 </resources>

@@ -101,4 +101,11 @@ public class GroupMenuActivity extends AppCompatActivity implements MessageListe
             eduApp.sendTransfers(new TransferRequestAnswer(DELETE_GROUP,String.valueOf(group.groupId)));
         }
     }
+
+    public void onClickOpenChannel(View view) {
+        Intent intent = new Intent(GroupMenuActivity.this, ChannelActivity.class);
+        intent.putExtra(INTENT_GROUP,group);
+        intent.putExtra(INTENT_GROUP_PERSONS,eduApp.groupPersons);
+        startActivity(intent);
+    }
 }

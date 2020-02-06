@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:background="@color/nearWhite">
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="70"
+        android:background="@drawable/stranger_message"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/message_person_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:paddingTop="5dp"
+            android:textStyle="italic"
+            tools:text="Копылов Андрей Валериевич"></TextView>
+
+        <TextView
+            android:id="@+id/message_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="5dp"
+            android:textSize="18sp"
+            android:textColor="@color/colorPrimaryDark"
+            tools:text="Это большое длинное тестовое сообщение. Оно не должно заходить за экран, кроме того, оно не должно смещать время." />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/message_time"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|start"
+        android:layout_weight="30"
+        android:paddingStart="5dp"
+        android:paddingEnd="0dp"
+        android:paddingBottom="5dp"
+        tools:text="25.10.2019"></TextView>
+
+</LinearLayout>

@@ -4,6 +4,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.educarea.mobile.adapters.InviteAdapter;
 
@@ -49,6 +50,10 @@ public class InviteActivity extends AppInetActivity implements TypeRequestAnswer
                 myInvites = (MyInvites) in;
                 adapter.setMyInvites(myInvites.myInvites);
                 adapter.notifyDataSetChanged();
+                if (myInvites.myInvites.size()==0){
+                    Toast.makeText(this, getString(R.string.no_invites), Toast.LENGTH_SHORT).show();
+                    onBackPressed();
+                }
             }
             else eduApp.standartReactionOnAsnwer(message,InviteActivity.this);
         }else eduApp.standartReactionOnAsnwer(message,InviteActivity.this);
