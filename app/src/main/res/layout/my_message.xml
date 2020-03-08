@@ -46,7 +46,7 @@
             android:paddingEnd="10dp"
             android:paddingBottom="10dp"
             android:paddingTop="5dp"
-            android:gravity="end"
+            android:gravity="start"
             android:textSize="18sp"
             android:textColor="@color/nearWhite"
             tools:text="Это большое длинное тестовое сообщение. Оно не должно заходить за экран, кроме того, оно не должно смещать время." />

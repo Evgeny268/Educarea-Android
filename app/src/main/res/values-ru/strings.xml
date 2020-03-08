@@ -69,4 +69,11 @@
     <string name="copy_to_clip_board">Скопировано в буфер обмена</string>
     <string name="channel">Канал новостей</string>
     <string name="no_invites">Нет приглашений</string>
+    <string name="offline_mode">Оффлайн режим</string>
+    <string name="update_available">Доступно обновление</string>
+    <string name="download">Скачать</string>
+    <string name="later">Позже</string>
+    <string name="need_update">Для дальнейшей работы приложения требуется установить обновление</string>
+    <string name="update_ask">Скачать обновление сейчас?</string>
+    <string name="offline_alert">Не доступно в оффлайн режиме</string>
 </resources>

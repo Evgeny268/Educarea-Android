@@ -11,17 +11,17 @@ import android.os.Looper;
 import android.os.Message;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.PopupMenu;
+import android.widget.Toast;
 
 import com.educarea.mobile.adapters.GroupPersonAdapter;
 import com.educarea.mobile.internet.MessageListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+
 import transfers.Group;
 import transfers.GroupPerson;
 import transfers.GroupPersons;
-import transfers.Timetable;
 import transfers.TransferRequestAnswer;
 import transfers.Transfers;
 import transfers.TransfersFactory;
@@ -30,10 +30,8 @@ import transfers.TypeRequestAnswer;
 import static com.educarea.mobile.EduApp.INTENT_GROUP;
 import static com.educarea.mobile.EduApp.INTENT_GROUP_PERSON;
 
-public class PersonsActivity extends AppCompatActivity implements MessageListener, TypeRequestAnswer, GroupPersonAdapter.GroupPersonClickListener {
+public class PersonsActivity extends AppInetActivity implements MessageListener, TypeRequestAnswer, GroupPersonAdapter.GroupPersonClickListener {
 
-    private EduApp eduApp;
-    private Handler handler;
     private Group group;
     private GroupPersons persons = null;
     private RecyclerView recyclerView;
@@ -54,10 +52,12 @@ public class PersonsActivity extends AppCompatActivity implements MessageListene
         manager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(manager);
         recyclerView.setHasFixedSize(false);
-        adapter = new GroupPersonAdapter(PersonsActivity.this, persons,eduApp.user.iduser);
+        adapter = new GroupPersonAdapter(PersonsActivity.this, eduApp.getAppData().getUser().iduser);
         recyclerView.setAdapter(adapter);
         if (eduApp.moderator){
-            addPersonBtn.show();
+            if (!eduApp.getInetWorker().isOfflineMode()) {
+                addPersonBtn.show();
+            }
         }else {
             addPersonBtn.hide();
         }
@@ -66,36 +66,34 @@ public class PersonsActivity extends AppCompatActivity implements MessageListene
     @Override
     protected void onStart() {
         super.onStart();
-        handler = new Handler(Looper.getMainLooper()){
-            @Override
-            public void handleMessage(Message msg) {
-                super.handleMessage(msg);
-                String data = (String)msg.obj;
-                Transfers in = TransfersFactory.createFromJSON(data);
-                if (in!=null){
-                    if (in instanceof GroupPersons){
-                        persons = (GroupPersons) in;
-                        adapter.setGroupPersons(persons);
-                        adapter.notifyDataSetChanged();
-                    }else if (in instanceof TransferRequestAnswer){
-                        if (((TransferRequestAnswer) in).request.equals(UPDATE_INFO)){
-                            eduApp.sendTransfers(new TransferRequestAnswer(GET_GROUP_PERSONS, String.valueOf(group.groupId)));
-                        }else eduApp.standartReactionOnAsnwer(data, PersonsActivity.this);
-                    }else eduApp.standartReactionOnAsnwer(data, PersonsActivity.this);
-                }else {
-                    eduApp.standartReactionOnAsnwer(data, PersonsActivity.this);
-                }
-            }
-        };
-        eduApp.getInetWorker().setMessageListener(this);
-        eduApp.sendTransfers(new TransferRequestAnswer(GET_GROUP_PERSONS, String.valueOf(group.groupId)));
+        persons = eduApp.getAppData().getGroupPersons(group.groupId);
+        adapter.setGroupPersons(persons);
+        adapter.notifyDataSetChanged();
+        if (!eduApp.getInetWorker().isOfflineMode()) {
+            eduApp.sendTransfers(new TransferRequestAnswer(GET_GROUP_PERSONS, String.valueOf(group.groupId)));
+        }
     }
 
     @Override
-    public void messageIncome(String message) {
-        Message message1 = handler.obtainMessage(0,message);
-        message1.sendToTarget();
+    protected void newMessage(String message) {
+        String data = message;
+        Transfers in = TransfersFactory.createFromJSON(data);
+        if (in!=null){
+            if (in instanceof GroupPersons){
+                persons = (GroupPersons) in;
+                eduApp.getAppData().setGroupPersons(persons,this);
+                adapter.setGroupPersons(persons);
+                adapter.notifyDataSetChanged();
+            }else if (in instanceof TransferRequestAnswer){
+                if (((TransferRequestAnswer) in).request.equals(UPDATE_INFO)){
+                    eduApp.sendTransfers(new TransferRequestAnswer(GET_GROUP_PERSONS, String.valueOf(group.groupId)));
+                }else eduApp.standartReactionOnAsnwer(data, PersonsActivity.this);
+            }else eduApp.standartReactionOnAsnwer(data, PersonsActivity.this);
+        }else {
+            eduApp.standartReactionOnAsnwer(data, PersonsActivity.this);
+        }
     }
+
 
     public void onClickAddPerson(View view) {
         Intent intent = new Intent(PersonsActivity.this, AddPersonActivity.class);
@@ -128,10 +126,15 @@ public class PersonsActivity extends AppCompatActivity implements MessageListene
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()){
-                    case R.id.menu_delete:
-                        GroupPerson groupPerson = persons.persons.get(position);
-                        TransferRequestAnswer out = new TransferRequestAnswer(DELETE_PERSON,String.valueOf(groupPerson.groupPersonId));
-                        eduApp.sendTransfers(out);
+                    case R.id.menu_delete: {
+                        if (!eduApp.getInetWorker().isOfflineMode()) {
+                            GroupPerson groupPerson = persons.persons.get(position);
+                            TransferRequestAnswer out = new TransferRequestAnswer(DELETE_PERSON, String.valueOf(groupPerson.groupPersonId));
+                            eduApp.sendTransfers(out);
+                        }else {
+                            Toast.makeText(PersonsActivity.this, getString(R.string.offline_alert), Toast.LENGTH_SHORT).show();
+                        }
+                    }
                         return true;
                 }
                 return false;

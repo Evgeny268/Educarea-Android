@@ -11,10 +11,13 @@ import android.os.Looper;
 import android.os.Message;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.PopupMenu;
+import android.widget.Toast;
 
 import com.educarea.mobile.adapters.UserGroupsAdapter;
 import com.educarea.mobile.internet.MessageListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import transfers.Group;
 import transfers.GroupPerson;
@@ -26,70 +29,74 @@ import transfers.UserGroups;
 
 import static com.educarea.mobile.EduApp.INTENT_GROUP;
 
-public class GroupsListActivity extends AppCompatActivity implements MessageListener, TypeRequestAnswer, UserGroupsAdapter.MyGroupClickListener {
+public class GroupsListActivity extends AppInetActivity implements MessageListener, TypeRequestAnswer, UserGroupsAdapter.MyGroupClickListener {
 
-    private EduApp eduApp;
     private RecyclerView recyclerView;
     private UserGroupsAdapter adapter;
     private LinearLayoutManager manager;
-    private UserGroups userGroups;
-    private Handler handler;
+    private FloatingActionButton btnAddGroup;
+    private Button btnInvites;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_groups_list);
-        userGroups = new UserGroups();
         eduApp = (EduApp)getApplicationContext();
-        eduApp.groupPersons = null;
         recyclerView = findViewById(R.id.recyclerMyGroups);
+        btnAddGroup = findViewById(R.id.floatingButtonAddGroup);
+        btnInvites = findViewById(R.id.buttonInvations);
         manager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(manager);
         recyclerView.setHasFixedSize(false);
-        adapter = new UserGroupsAdapter(GroupsListActivity.this,userGroups);
+        adapter = new UserGroupsAdapter(GroupsListActivity.this);
         recyclerView.setAdapter(adapter);
+        if (eduApp.getInetWorker().isOfflineMode()){
+            btnAddGroup.hide();
+            btnInvites.setVisibility(View.GONE);
+        }
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        handler = new Handler(Looper.getMainLooper()){
-            @Override
-            public void handleMessage(Message msg) {
-                super.handleMessage(msg);
-                String data = (String)msg.obj;
-                Transfers in = TransfersFactory.createFromJSON(data);
-                if (in!=null){
-                    if (in instanceof UserGroups){
-                        userGroups.clear();
-                        userGroups.add((UserGroups)in);
-                        adapter.notifyDataSetChanged();
-                    }else if (in instanceof TransferRequestAnswer){
-                        if (((TransferRequestAnswer) in).request.equals(UPDATE_INFO)){
-                            eduApp.sendTransfers(new TransferRequestAnswer(GET_MY_GROUPS));
-                        }else {
-                            eduApp.standartReactionOnAsnwer(data, GroupsListActivity.this);
-                        }
-                    }
+        adapter.setUserGroups(eduApp.getAppData().getUserGroups());
+        adapter.notifyDataSetChanged();
+        if (!eduApp.getInetWorker().isOfflineMode()) {
+            eduApp.sendTransfers(new TransferRequestAnswer(GET_MY_GROUPS));
+        }
+    }
+
+    @Override
+    protected void newMessage(String message) {
+        String data = message;
+        Transfers in = TransfersFactory.createFromJSON(data);
+        if (in!=null){
+            if (in instanceof UserGroups){
+                eduApp.getAppData().setUserGroups((UserGroups) in,this);
+                adapter.setUserGroups(eduApp.getAppData().getUserGroups());
+                adapter.notifyDataSetChanged();
+                for (int i = 0; i < ((UserGroups) in).groups.size(); i++) {
+                    String groupId = String.valueOf(((UserGroups) in).groups.get(i).groupId);
+                    eduApp.sendTransfers(new TransferRequestAnswer(GET_GROUP_PERSONS,groupId));
+                    eduApp.sendTransfers(new TransferRequestAnswer(GET_TIMETABLE,groupId));
+                }
+            }else if (in instanceof TransferRequestAnswer){
+                if (((TransferRequestAnswer) in).request.equals(UPDATE_INFO)){
+                    eduApp.sendTransfers(new TransferRequestAnswer(GET_MY_GROUPS));
                 }else {
                     eduApp.standartReactionOnAsnwer(data, GroupsListActivity.this);
                 }
-            }
-        };
-        eduApp.getInetWorker().setMessageListener(this);
-        eduApp.sendTransfers(new TransferRequestAnswer(GET_MY_GROUPS));
+            }else eduApp.standartReactionOnAsnwer(data, GroupsListActivity.this);
+        }else {
+            eduApp.standartReactionOnAsnwer(data, GroupsListActivity.this);
+        }
     }
 
-    @Override
-    public void messageIncome(String message) {
-        Message message1 = handler.obtainMessage(0,message);
-        message1.sendToTarget();
-    }
 
     @Override
     public void onClickMyGroup(int position, View view) {
-        Group group= userGroups.getGroup(position);
-        GroupPerson groupPerson = userGroups.getGroupPerson(group);
+        Group group = eduApp.getAppData().getUserGroups().getGroup(position);
+        GroupPerson groupPerson = eduApp.getAppData().getUserGroups().getGroupPerson(group);
         if (groupPerson.moderator==1){
             eduApp.moderator = true;
         }else {
@@ -124,10 +131,15 @@ public class GroupsListActivity extends AppCompatActivity implements MessageList
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()){
-                    case R.id.leave_group:
-                        Group group = userGroups.getGroup(position);
-                        TransferRequestAnswer out = new TransferRequestAnswer(LEAVE_GROUP,String.valueOf(group.groupId));
-                        eduApp.sendTransfers(out);
+                    case R.id.leave_group: {
+                        if (eduApp.getInetWorker().isOfflineMode()){
+                            Toast.makeText(GroupsListActivity.this, getString(R.string.offline_alert), Toast.LENGTH_SHORT).show();
+                        }else {
+                            Group group = eduApp.getAppData().getUserGroups().getGroup(position);
+                            TransferRequestAnswer out = new TransferRequestAnswer(LEAVE_GROUP, String.valueOf(group.groupId));
+                            eduApp.sendTransfers(out);
+                        }
+                    }
                         return true;
                 }
                 return false;

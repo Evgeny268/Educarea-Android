@@ -1,10 +1,8 @@
 package com.educarea.mobile;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 import android.app.TimePickerDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,9 +12,9 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
-import java.time.LocalTime;
+import com.educarea.mobile.dialogs.TimePickerFragment;
+
 import java.util.ArrayList;
 
 import transfers.Group;
@@ -29,10 +27,8 @@ import transfers.TransfersFactory;
 import transfers.TypeRequestAnswer;
 
 import static com.educarea.mobile.EduApp.INTENT_GROUP;
-import static com.educarea.mobile.EduApp.INTENT_GROUP_PERSON;
 import static com.educarea.mobile.EduApp.INTENT_GROUP_PERSONS;
 import static com.educarea.mobile.EduApp.INTENT_TIMETABLE;
-import static transfers.TypeRequestAnswer.UPDATE_INFO;
 
 public class EditTimetableActivity extends AppInetActivity implements TypeRequestAnswer, TimePickerDialog.OnTimeSetListener {
 

@@ -1,4 +1,4 @@
-package com.educarea.mobile;
+package com.educarea.mobile.dialogs;
 
 import android.app.Dialog;
 import android.app.TimePickerDialog;

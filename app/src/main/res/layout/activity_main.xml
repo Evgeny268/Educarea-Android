@@ -12,8 +12,8 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-thin"
         android:text="@string/app_name"
-        android:textSize="70sp"
         android:textColor="@color/nearWhite"
+        android:textSize="70sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,16 +40,32 @@
         android:id="@+id/buttonReconnect"
         android:layout_width="177dp"
         android:layout_height="56dp"
+        android:layout_marginBottom="32dp"
         android:background="@color/nearWhite"
         android:enabled="false"
         android:onClick="onClickReconnect"
         android:text="@string/try_again"
         android:textColor="@color/colorPrimaryDark"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/textViewVersion"
+        app:layout_constraintBottom_toTopOf="@+id/buttonEnableOffline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline"
-        app:layout_constraintVertical_bias="0.74" />
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/buttonEnableOffline"
+        android:layout_width="177dp"
+        android:layout_height="56dp"
+        android:layout_marginBottom="32dp"
+        android:background="@color/nearWhite"
+        android:enabled="false"
+        android:onClick="onClickOffline"
+        android:text="@string/offline_mode"
+        android:textColor="@color/colorPrimaryDark"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/textViewVersion"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

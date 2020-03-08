@@ -23,9 +23,9 @@ public class UserGroupsAdapter extends RecyclerView.Adapter {
     private UserGroups userGroups;
     private MyGroupClickListener myGroupClickListener;
 
-    public UserGroupsAdapter(Context mContext, UserGroups userGroups) {
+    public UserGroupsAdapter(Context mContext) {
         this.mContext = mContext;
-        this.userGroups = userGroups;
+        this.userGroups = new UserGroups();
         this.myGroupClickListener = (MyGroupClickListener) mContext;
     }
 

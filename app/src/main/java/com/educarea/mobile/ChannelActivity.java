@@ -62,7 +62,7 @@ public class ChannelActivity extends AppInetActivity implements TypeRequestAnswe
         GroupPerson me = null;
         for (int i = 0; i < groupPersons.persons.size(); i++) {
             GroupPerson current = groupPersons.persons.get(i);
-            if (current.userId==eduApp.user.iduser){
+            if (current.userId==eduApp.getAppData().getUser().iduser){
                 me = current;
             }
         }
@@ -76,7 +76,7 @@ public class ChannelActivity extends AppInetActivity implements TypeRequestAnswe
         int myId = 0;
         for (int i = 0; i < groupPersons.persons.size(); i++) {
             GroupPerson current = groupPersons.persons.get(i);
-            if (current.userId==eduApp.user.iduser){
+            if (current.userId==eduApp.getAppData().getUser().iduser){
                 myId = current.groupPersonId;
             }
         }

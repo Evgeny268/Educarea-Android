@@ -9,6 +9,7 @@ public class InetWorker implements MessageListener {
     private WebSocketWorker webSocketWorker = null;
     private MessageListener messageListener = null;
     private URI uri = null;
+    private boolean offlineMode = false;
     private static final Object lockConnect = new Object();
 
     public InetWorker(URI uri) {
@@ -21,6 +22,7 @@ public class InetWorker implements MessageListener {
 
 
     public synchronized boolean connectBlocking(){
+        if (offlineMode) return false;
         boolean status;
         if (webSocketWorker!=null){
             if (webSocketWorker.isConnected()){
@@ -41,6 +43,7 @@ public class InetWorker implements MessageListener {
     }
 
     public void connect(){
+        if (offlineMode) return;
         class NetConnector implements Runnable{
             private boolean status = false;
             @Override
@@ -70,6 +73,15 @@ public class InetWorker implements MessageListener {
         new Thread(new NetConnector()).start();
     }
 
+    public void setOfflineMode(boolean offlineMode) {
+        this.offlineMode = offlineMode;
+        closeConnection();
+    }
+
+    public boolean isOfflineMode() {
+        return offlineMode;
+    }
+
     public synchronized void closeConnection(){
         if (webSocketWorker != null){
             try {
@@ -91,6 +103,14 @@ public class InetWorker implements MessageListener {
 
     public void send(String data){
 
+        if (offlineMode){
+            try{
+                messageListener.messageIncome(MessageListener.OFFLINE_MODE);
+            }catch (NullPointerException e){
+                e.printStackTrace();
+            }
+            return;
+        }
         class MessageSender implements Runnable {
             private String message;
 

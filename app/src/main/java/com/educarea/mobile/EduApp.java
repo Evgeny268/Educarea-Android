@@ -1,5 +1,6 @@
 package com.educarea.mobile;
 
+import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
@@ -18,11 +19,15 @@ import java.net.URISyntaxException;
 
 import transfers.Authorization;
 import transfers.GroupPersons;
+import transfers.Timetables;
 import transfers.TransferRequestAnswer;
 import transfers.Transfers;
 import transfers.TransfersFactory;
 import transfers.TypeRequestAnswer;
 import transfers.User;
+import transfers.UserGroups;
+
+import static com.educarea.mobile.internet.MessageListener.OFFLINE_MODE;
 
 public class EduApp extends Application implements TypeRequestAnswer {
 
@@ -37,8 +42,7 @@ public class EduApp extends Application implements TypeRequestAnswer {
 
     private String user_token = null;
     private InetWorker inetWorker = null;
-    public User user;
-    public GroupPersons groupPersons = null;
+    private AppData appData;
     public boolean moderator = false;
 
     @Override
@@ -46,6 +50,7 @@ public class EduApp extends Application implements TypeRequestAnswer {
         super.onCreate();
         Log.d("educarea","EduApp onCreate");
         loadToken();
+        appData = new AppData();
     }
 
     public boolean initInternet(){
@@ -68,6 +73,26 @@ public class EduApp extends Application implements TypeRequestAnswer {
         }else {
             return true;
         }
+    }
+
+    public boolean initInetWorker(){
+        if (inetWorker == null) {
+            URI uri = null;
+            try {
+                uri = new URI(getString(R.string.server_address));
+                inetWorker = new InetWorker(uri);
+                return true;
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+                return false;
+            }
+        }else {
+            return true;
+        }
+    }
+
+    public AppData getAppData() {
+        return appData;
     }
 
     public InetWorker getInetWorker() {
@@ -106,9 +131,16 @@ public class EduApp extends Application implements TypeRequestAnswer {
         if (data.equals(MessageListener.RECONNECT)){
             Toast.makeText(context, context.getString(R.string.reconnect_to_network), Toast.LENGTH_SHORT).show();
         }else if (data.equals(MessageListener.NO_CONNECTION) || data.equals(MessageListener.CLOSING)){
-            Toast.makeText(context, context.getString(R.string.reconnect_to_network), Toast.LENGTH_SHORT).show();
-            inetWorker.connect();
-        }else if (data.equals(MessageListener.CONNECT_DONE)){
+            if (inetWorker.isOfflineMode()){
+                Toast.makeText(context, context.getString(R.string.offline_alert), Toast.LENGTH_SHORT).show();
+            }else {
+                Toast.makeText(context, context.getString(R.string.reconnect_to_network), Toast.LENGTH_SHORT).show();
+                inetWorker.connect();
+            }
+        }else if (data.equals(OFFLINE_MODE)){
+            Toast.makeText(context, context.getString(R.string.offline_alert), Toast.LENGTH_SHORT).show();
+        }
+        else if (data.equals(MessageListener.CONNECT_DONE)){
             Toast.makeText(context, context.getString(R.string.connected), Toast.LENGTH_SHORT).show();
             if (user_token!=null){
                 Authorization authorization = new Authorization(user_token);
@@ -119,7 +151,7 @@ public class EduApp extends Application implements TypeRequestAnswer {
         }else if (data.equals(MessageListener.CLOSING)){
             Toast.makeText(context, context.getString(R.string.no_internet_connection), Toast.LENGTH_SHORT).show();
         }else if (data.equals(LOGOUT)){
-            clearAllUserData();
+            clearAllUserData(context);
             context.startActivity(new Intent(context,MainActivity.class));
         }
         else {
@@ -150,6 +182,12 @@ public class EduApp extends Application implements TypeRequestAnswer {
                     }else if (((TransferRequestAnswer) input).request.equals(NO_PERMISSION)){
                         Toast.makeText(context, context.getString(R.string.no_permission), Toast.LENGTH_SHORT).show();
                     }
+                }else if (input instanceof GroupPersons){
+                    appData.setGroupPersons((GroupPersons) input, context);
+                }else if (input instanceof Timetables){
+                    appData.setTimetables((Timetables) input, context);
+                }else if (input instanceof UserGroups){
+                    appData.setUserGroups((UserGroups) input, context);
                 }
             }
         }
@@ -173,11 +211,12 @@ public class EduApp extends Application implements TypeRequestAnswer {
         }
     }
 
-    public void clearAllUserData(){
+    public void clearAllUserData(Context context){
         SharedPreferences mSetting = getApplicationContext().getSharedPreferences(APP_PREFERENCES,MODE_PRIVATE);
         SharedPreferences.Editor editor = mSetting.edit();
         editor.clear();
         editor.apply();
+        ((ActivityManager)context.getSystemService(ACTIVITY_SERVICE)).clearApplicationUserData();
     }
 
 

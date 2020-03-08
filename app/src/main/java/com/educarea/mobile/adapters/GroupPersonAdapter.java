@@ -24,9 +24,9 @@ public class GroupPersonAdapter extends RecyclerView.Adapter {
     private int myId;
     private GroupPersonClickListener listener;
 
-    public GroupPersonAdapter(Context mContext, GroupPersons groupPersons, int myId) {
+    public GroupPersonAdapter(Context mContext, int myId) {
         this.mContext = mContext;
-        this.groupPersons = groupPersons;
+        this.groupPersons = new GroupPersons();
         this.myId = myId;
         this.listener = (GroupPersonClickListener) mContext;
     }

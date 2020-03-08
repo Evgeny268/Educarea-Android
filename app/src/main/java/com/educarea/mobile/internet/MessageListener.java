@@ -6,5 +6,6 @@ public interface MessageListener {
     String NO_CONNECTION = "NO_CONNECTION";
     String CLOSING = "CLOSING";
     String ERROR = "ERROR";
+    String OFFLINE_MODE = "OFFLINE_MODE";
     void messageIncome(String message);
 }

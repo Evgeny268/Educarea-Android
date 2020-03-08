@@ -61,7 +61,11 @@ public class CompactTimetableActivity extends AppInetActivity implements TypeReq
     @Override
     protected void onStart() {
         super.onStart();
-        eduApp.sendTransfers(new TransferRequestAnswer(GET_TIMETABLE,String.valueOf(group.groupId)));
+        timetables = eduApp.getAppData().getTimetables(group.groupId);
+        showCurrentDay();
+        if (!eduApp.getInetWorker().isOfflineMode()) {
+            eduApp.sendTransfers(new TransferRequestAnswer(GET_TIMETABLE, String.valueOf(group.groupId)));
+        }
     }
 
     @Override
@@ -135,7 +139,7 @@ public class CompactTimetableActivity extends AppInetActivity implements TypeReq
     public void onClickOpenAllTimeTable(View view) {
         Intent intent = new Intent(CompactTimetableActivity.this, AllTimetableActivity.class);
         intent.putExtra(INTENT_GROUP, group);
-        intent.putExtra(INTENT_GROUP_PERSONS,eduApp.groupPersons);
+        intent.putExtra(INTENT_GROUP_PERSONS,eduApp.getAppData().getGroupPersons(group.groupId));
         startActivity(intent);
         finish();
     }
