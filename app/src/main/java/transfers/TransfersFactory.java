@@ -177,6 +177,15 @@ public class TransfersFactory {
                     return null;
                 }
             }
+            else if (node.get("type").asText().equals("."+GroupPersonCode.class.getSimpleName())) {
+                try {
+                    GroupPersonCode out = objectMapper.readValue(jsonString, GroupPersonCode.class);
+                    return out;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    return null;
+                }
+            }
             else {
                 return null;
             }

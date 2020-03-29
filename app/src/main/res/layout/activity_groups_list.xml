@@ -8,12 +8,12 @@
     tools:context=".GroupsListActivity">
 
     <Button
-        android:id="@+id/buttonInvations"
+        android:id="@+id/buttonEnterCode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         android:onClick="onClickInvites"
-        android:text="@string/invitations"
+        android:text="@string/enter_invite_code"
         android:textColor="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,7 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/buttonInvations"
+        app:layout_constraintBottom_toTopOf="@+id/buttonEnterCode"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -40,7 +40,7 @@
         android:focusable="true"
         android:onClick="onClickAddGroup"
         android:scaleType="centerCrop"
-        app:layout_constraintBottom_toTopOf="@+id/buttonInvations"
+        app:layout_constraintBottom_toTopOf="@+id/buttonEnterCode"
         app:layout_constraintEnd_toEndOf="@+id/recyclerMyGroups"
         app:srcCompat="@drawable/ic_add_black_24dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

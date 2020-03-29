@@ -73,7 +73,7 @@ public class PersonActivity extends AppInetActivity {
 
 
     public void onClickBindUser(View view) {
-        Intent intent = new Intent(PersonActivity.this, BindActivity.class);
+        Intent intent = new Intent(PersonActivity.this, PersonCodeActivity.class);
         intent.putExtra(INTENT_GROUP_PERSON,groupPerson);
         startActivity(intent);
         finish();

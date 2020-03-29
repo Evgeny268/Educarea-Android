@@ -1,14 +1,10 @@
 package com.educarea.mobile;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -44,7 +40,7 @@ public class GroupsListActivity extends AppInetActivity implements MessageListen
         eduApp = (EduApp)getApplicationContext();
         recyclerView = findViewById(R.id.recyclerMyGroups);
         btnAddGroup = findViewById(R.id.floatingButtonAddGroup);
-        btnInvites = findViewById(R.id.buttonInvations);
+        btnInvites = findViewById(R.id.buttonEnterCode);
         manager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(manager);
         recyclerView.setHasFixedSize(false);
@@ -149,6 +145,6 @@ public class GroupsListActivity extends AppInetActivity implements MessageListen
     }
 
     public void onClickInvites(View view) {
-        startActivity(new Intent(GroupsListActivity.this,InviteActivity.class));
+        startActivity(new Intent(GroupsListActivity.this,EnterCodeActivity.class));
     }
 }

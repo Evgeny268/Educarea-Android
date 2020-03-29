@@ -9,9 +9,11 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.educarea.mobile.adapters.MessageAdapter;
 
@@ -139,6 +141,9 @@ public class ChannelActivity extends AppInetActivity implements TypeRequestAnswe
         ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
         ClipData clip = ClipData.newPlainText(getString(R.string.copy_to_clip_board), message.text);
         clipboard.setPrimaryClip(clip);
+        Toast.makeText(this, getString(R.string.copy_to_clip_board), Toast.LENGTH_SHORT).show();
+        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        v.vibrate(100);
     }
 
     private void addNewChannelMessages(ArrayList<ChannelMessage> list){

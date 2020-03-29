@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:name=".EduApp"
@@ -13,12 +14,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ChannelActivity"></activity>
+        <activity android:name=".PersonCodeActivity"></activity>
+        <activity android:name=".EnterCodeActivity" />
+        <activity android:name=".ChannelActivity" />
         <activity android:name=".CompactTimetableActivity" />
         <activity android:name=".AllTimetableActivity" />
         <activity android:name=".EditTimetableActivity" />
-        <activity android:name=".BindActivity" />
-        <activity android:name=".InviteActivity" />
         <activity android:name=".PersonActivity" />
         <activity android:name=".AddPersonActivity" />
         <activity android:name=".PersonsActivity" />

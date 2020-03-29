@@ -76,4 +76,9 @@
     <string name="need_update">Для дальнейшей работы приложения требуется установить обновление</string>
     <string name="update_ask">Скачать обновление сейчас?</string>
     <string name="offline_alert">Не доступно в оффлайн режиме</string>
+    <string name="enter_invite_code">Ввести код приглашения</string>
+    <string name="invite_code">Код приглашения</string>
+    <string name="code_not_exist">Такого кода не существует</string>
+    <string name="create_code">Создать код приглашения</string>
+    <string name="delete_code">Удалить код приглашения</string>
 </resources>

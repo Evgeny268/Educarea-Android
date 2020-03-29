@@ -76,4 +76,9 @@
     <string name="need_update">For further work of the application, you need to install an update</string>
     <string name="update_ask">Download update now?</string>
     <string name="offline_alert">Not available offline</string>
+    <string name="enter_invite_code">Enter invite code</string>
+    <string name="invite_code">Invite code</string>
+    <string name="code_not_exist">Code not exist</string>
+    <string name="create_code">Create invite code</string>
+    <string name="delete_code">Delete invite code</string>
 </resources>
