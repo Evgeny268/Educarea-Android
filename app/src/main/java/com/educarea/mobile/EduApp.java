@@ -41,6 +41,7 @@ public class EduApp extends Application implements TypeRequestAnswer {
     public static final String INTENT_TIMETABLE = "INTENT_TIMETABLE";
 
     private String user_token = null;
+    private String user_cloud_token = null;
     private InetWorker inetWorker = null;
     private AppData appData;
     public boolean moderator = false;
@@ -50,6 +51,7 @@ public class EduApp extends Application implements TypeRequestAnswer {
         super.onCreate();
         Log.d("educarea","EduApp onCreate");
         loadToken();
+        loadCloudToken();
         appData = new AppData();
     }
 
@@ -101,6 +103,10 @@ public class EduApp extends Application implements TypeRequestAnswer {
 
     public String getUser_token() {
         return user_token;
+    }
+
+    public String getUser_cloud_token() {
+        return user_cloud_token;
     }
 
     @Override
@@ -207,6 +213,24 @@ public class EduApp extends Application implements TypeRequestAnswer {
             user_token = mSetting.getString(APP_USER_TOKEN,"");
             if (user_token.equals("")){
                 user_token = null;
+            }
+        }
+    }
+
+    public void saveCloudToken(String cloudToken){
+        SharedPreferences mSetting = getApplicationContext().getSharedPreferences(APP_PREFERENCES,MODE_PRIVATE);
+        SharedPreferences.Editor editor = mSetting.edit();
+        editor.putString(APP_USER_CLOUD_TOKEN,cloudToken);
+        editor.apply();
+        user_cloud_token = cloudToken;
+    }
+
+    public void loadCloudToken(){
+        SharedPreferences mSetting = getApplicationContext().getSharedPreferences(APP_PREFERENCES,MODE_PRIVATE);
+        if (mSetting.contains(APP_USER_CLOUD_TOKEN)){
+            user_cloud_token = mSetting.getString(APP_USER_CLOUD_TOKEN,"");
+            if (user_cloud_token.equals("")){
+                user_cloud_token = null;
             }
         }
     }

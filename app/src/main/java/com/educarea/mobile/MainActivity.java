@@ -163,7 +163,8 @@ public class MainActivity extends AppInetActivity implements TypeRequestAnswer, 
             Intent intent = new Intent(MainActivity.this,LogRegActivity.class);
             startActivity(intent);
         }else {
-            Authorization out = new Authorization(auth_token);
+            eduApp.loadCloudToken();
+            Authorization out = new Authorization(auth_token, eduApp.getUser_cloud_token());
             eduApp.sendTransfers(out);
         }
     }
