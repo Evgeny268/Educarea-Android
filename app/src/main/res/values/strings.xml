@@ -81,4 +81,8 @@
     <string name="code_not_exist">Code not exist</string>
     <string name="create_code">Create invite code</string>
     <string name="delete_code">Delete invite code</string>
+    <string name="group_channel">Group channel</string>
+    <string name="group_channel_description">Notify me of new posts in a group channel</string>
+    <string name="app_news">App news</string>
+    <string name="app_news_description">Notify me about new app versions and other app news</string>
 </resources>

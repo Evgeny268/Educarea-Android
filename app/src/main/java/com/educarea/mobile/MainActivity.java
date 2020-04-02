@@ -16,7 +16,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.educarea.mobile.dialogs.TwoAnswerAlertDialog;
+import com.educarea.mobile.firebase.MyFirebaseService;
 import com.educarea.mobile.internet.MessageListener;
+import com.educarea.mobile.notifications.NotifyWorker;
 
 import transfers.Authorization;
 import transfers.TransferRequestAnswer;
@@ -157,6 +159,8 @@ public class MainActivity extends AppInetActivity implements TypeRequestAnswer, 
 
 
     private void appEnter(){
+        NotifyWorker.createAppChannels(this);
+        MyFirebaseService.subscribeToTopics();
         String auth_token = eduApp.getUser_token();
         eduApp.getInetWorker().setMessageListener(MainActivity.this);
         if (auth_token==null){

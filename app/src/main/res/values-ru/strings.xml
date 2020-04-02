@@ -81,4 +81,8 @@
     <string name="code_not_exist">Такого кода не существует</string>
     <string name="create_code">Создать код приглашения</string>
     <string name="delete_code">Удалить код приглашения</string>
+    <string name="group_channel">Канал группы</string>
+    <string name="group_channel_description">Уведомлять о новых сообщений в канале группы</string>
+    <string name="app_news">Новости приложения</string>
+    <string name="app_news_description">Уведомлять о новых версиях приложения и прочих новостях приложения</string>
 </resources>
