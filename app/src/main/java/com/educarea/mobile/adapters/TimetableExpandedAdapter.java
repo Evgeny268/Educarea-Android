@@ -102,6 +102,8 @@ public class TimetableExpandedAdapter extends RecyclerView.Adapter<TimetableExpa
                     }
                 }
                 personName.setText(groupPerson.surname+" "+groupPerson.name+" "+groupPerson.patronymic);
+            }else {
+                personName.setText("");
             }
             objectName.setText(timetable.objectName);
             if (timetable.cabinet!=null){
