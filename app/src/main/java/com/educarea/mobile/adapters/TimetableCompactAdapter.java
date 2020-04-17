@@ -98,6 +98,8 @@ public class TimetableCompactAdapter extends RecyclerView.Adapter<TimetableCompa
                     }
                 }
                 personName.setText(groupPerson.surname+" "+groupPerson.name+" "+groupPerson.patronymic);
+            }else {
+                personName.setText("");
             }
             objectName.setText(timetable.objectName);
             if (timetable.cabinet!=null){
