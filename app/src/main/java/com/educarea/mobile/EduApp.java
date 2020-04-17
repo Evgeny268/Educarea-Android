@@ -34,6 +34,7 @@ public class EduApp extends Application implements TypeRequestAnswer {
     public static final String APP_PREFERENCES = "mysettings";
     public static final String APP_USER_TOKEN = "usertoken";
     public static final String APP_USER_CLOUD_TOKEN = "usercloudtoken";
+    public static final String APP_LAST_VERSION = "APP_LAST_VERSION";
     public static final String INTENT_GROUP = "INTENT_GROUP";
     public static final String INTENT_GROUP_PERSON = "INTENT_GROUP_PERSON";
     public static final String INTENT_GROUP_PERSONS = "INTENT_GROUP_PERSONS";

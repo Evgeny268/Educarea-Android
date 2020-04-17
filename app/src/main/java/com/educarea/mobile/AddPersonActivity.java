@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
@@ -56,6 +57,16 @@ public class AddPersonActivity extends AppInetActivity implements TypeRequestAns
             }
             if (groupPerson.moderator==1){
                 checkBox.setChecked(true);
+            }else {
+                if (groupPerson.userId == eduApp.getAppData().getUser().iduser){
+                    radioGroup.setEnabled(false);
+                    checkBox.setEnabled(false);
+                    checkBox.setVisibility(View.GONE);
+                    RadioButton student = findViewById(R.id.radioButtonStudent);
+                    RadioButton teacher = findViewById(R.id.radioButtonTeacher);
+                    student.setVisibility(View.GONE);
+                    teacher.setVisibility(View.GONE);
+                }
             }
         }else edit = false;
     }

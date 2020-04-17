@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
+import android.widget.Toast;
 
 import com.educarea.mobile.adapters.TimetableExpandedAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -51,7 +52,7 @@ public class AllTimetableActivity extends AppInetActivity implements TypeRequest
         recyclerView.setHasFixedSize(false);
         adapter = new TimetableExpandedAdapter(this);
         recyclerView.setAdapter(adapter);
-        if (eduApp.moderator){
+        if (cadAddTimetable()){
             btnAddTimetable.show();
         }else {
             btnAddTimetable.hide();
@@ -90,21 +91,24 @@ public class AllTimetableActivity extends AppInetActivity implements TypeRequest
 
     @Override
     public void onClickTimetableExpand(int position, View view) {
-        if (eduApp.moderator) {
+        if (canModifyTimetable(timetables.timetables.get(position))) {
             Timetable timetable = timetables.timetables.get(position);
             Intent intent = new Intent(AllTimetableActivity.this, EditTimetableActivity.class);
             intent.putExtra(INTENT_GROUP, group);
             intent.putExtra(INTENT_GROUP_PERSONS, groupPersons);
             intent.putExtra(INTENT_TIMETABLE, timetable);
             startActivity(intent);
-            finish();
+        }else {
+            Toast.makeText(this, getString(R.string.can_not_edit_object), Toast.LENGTH_SHORT).show();
         }
     }
 
     @Override
     public void onLongClickTimetableExpand(int position, View view) {
-        if (eduApp.moderator) {
+        if (canModifyTimetable(timetables.timetables.get(position))) {
             showPopupMenu(view, position);
+        }else {
+            Toast.makeText(this, getString(R.string.can_not_edit_object), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -125,6 +129,16 @@ public class AllTimetableActivity extends AppInetActivity implements TypeRequest
             }
         });
         popupMenu.show();
+    }
+
+    private boolean canModifyTimetable(Timetable timetable){
+        GroupPerson groupPerson = eduApp.getAppData().getUserGroups().getGroupPerson(group);
+        return timetable.groupPersonId == groupPerson.groupPersonId || groupPerson.moderator == 1;
+    }
+
+    private boolean cadAddTimetable(){
+        GroupPerson groupPerson = eduApp.getAppData().getUserGroups().getGroupPerson(group);
+        return groupPerson.moderator == 1 || groupPerson.personType == 1;
     }
 
 }

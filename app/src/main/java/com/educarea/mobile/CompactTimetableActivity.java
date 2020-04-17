@@ -141,7 +141,6 @@ public class CompactTimetableActivity extends AppInetActivity implements TypeReq
         intent.putExtra(INTENT_GROUP, group);
         intent.putExtra(INTENT_GROUP_PERSONS,eduApp.getAppData().getGroupPersons(group.groupId));
         startActivity(intent);
-        finish();
     }
 
 }

@@ -42,17 +42,21 @@ public class PersonActivity extends AppInetActivity {
         if (group == null || groupPerson == null) onBackPressed();
         if (groupPerson.surname==null && groupPerson.name==null && groupPerson.patronymic==null){
             surname.setText(getString(R.string.member)+" ID:"+groupPerson.groupPersonId);
+            buttonEdit.show();
         }else {
             surname.setText(groupPerson.surname);
             name.setText(groupPerson.name);
             patronymic.setText(groupPerson.patronymic);
+            if (eduApp.moderator){
+                buttonEdit.show();
+            }else {
+                buttonEdit.hide();
+            }
         }
         if (eduApp.moderator){
-            buttonEdit.show();
             btnBind.setVisibility(View.VISIBLE);
             btnBind.setEnabled(true);
         }else {
-            buttonEdit.hide();
             btnBind.setVisibility(View.GONE);
             btnBind.setEnabled(false);
         }

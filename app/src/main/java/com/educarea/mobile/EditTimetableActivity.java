@@ -76,6 +76,11 @@ public class EditTimetableActivity extends AppInetActivity implements TypeReques
                 selectedTeacher = -1;
             }
         });
+        if (!showTeachers()){
+            spinner.setVisibility(View.GONE);
+            TextView textView = findViewById(R.id.textViewTeacher);
+            textView.setVisibility(View.GONE);
+        }
         radioGroup.check(R.id.radioButtonEveryWeek);
         if (timetable!=null){
             objectName.setText(timetable.objectName);
@@ -157,10 +162,14 @@ public class EditTimetableActivity extends AppInetActivity implements TypeReques
 
     public void onClickSaveTametable(View view) {
         int groupPersonId;
-        if (selectedTeacher==-1){
-            groupPersonId = 0;
+        if (showTeachers()) {
+            if (selectedTeacher == -1) {
+                groupPersonId = 0;
+            } else {
+                groupPersonId = teachers.get(selectedTeacher).groupPersonId;
+            }
         }else {
-            groupPersonId = teachers.get(selectedTeacher).groupPersonId;
+            groupPersonId = eduApp.getAppData().getUserGroups().getGroupPerson(group).groupPersonId;
         }
         String objName = objectName.getText().toString();
         String cab = cabinet.getText().toString();
@@ -177,6 +186,11 @@ public class EditTimetableActivity extends AppInetActivity implements TypeReques
             newTable.timetableId = timetable.timetableId;
         }
         eduApp.sendTransfers(newTable);
+    }
+
+    private boolean showTeachers(){
+        GroupPerson groupPerson = eduApp.getAppData().getUserGroups().getGroupPerson(group);
+        return groupPerson.moderator == 1;
     }
 
 }

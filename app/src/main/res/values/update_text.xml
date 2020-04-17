@@ -1,0 +1,5 @@
+<resources>
+    <string name="update_text">- Now a group member who is not a moderator can edit his profile if it is not filled \n
+    - Now teachers who are not moderators can add items to the schedule. These items will be tied to their profile \n
+    - Teachers got the opportunity to edit and delete their subjects in the schedule</string>
+</resources>

@@ -85,4 +85,7 @@
     <string name="group_channel_description">Уведомлять о новых сообщений в канале группы</string>
     <string name="app_news">Новости приложения</string>
     <string name="app_news_description">Уведомлять о новых версиях приложения и прочих новостях приложения</string>
+    <string name="can_not_edit_object">Вы можете редактировать только свои предметы</string>
+    <string name="close">Закрыть</string>
+    <string name="update_info">Информация об обновлении</string>
 </resources>

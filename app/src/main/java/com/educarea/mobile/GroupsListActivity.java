@@ -4,6 +4,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.educarea.mobile.adapters.UserGroupsAdapter;
+import com.educarea.mobile.dialogs.UpdateDialogInfo;
 import com.educarea.mobile.internet.MessageListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -23,6 +25,8 @@ import transfers.TransfersFactory;
 import transfers.TypeRequestAnswer;
 import transfers.UserGroups;
 
+import static com.educarea.mobile.EduApp.APP_LAST_VERSION;
+import static com.educarea.mobile.EduApp.APP_PREFERENCES;
 import static com.educarea.mobile.EduApp.INTENT_GROUP;
 
 public class GroupsListActivity extends AppInetActivity implements MessageListener, TypeRequestAnswer, UserGroupsAdapter.MyGroupClickListener {
@@ -50,6 +54,7 @@ public class GroupsListActivity extends AppInetActivity implements MessageListen
             btnAddGroup.hide();
             btnInvites.setVisibility(View.GONE);
         }
+        showUpdateInfoIfNewVersion();
     }
 
     @Override
@@ -146,5 +151,22 @@ public class GroupsListActivity extends AppInetActivity implements MessageListen
 
     public void onClickInvites(View view) {
         startActivity(new Intent(GroupsListActivity.this,EnterCodeActivity.class));
+    }
+
+    public void showUpdateInfoIfNewVersion(){
+        SharedPreferences mSetting = getApplicationContext().getSharedPreferences(APP_PREFERENCES,MODE_PRIVATE);
+        if (mSetting.contains(APP_LAST_VERSION)){
+            int lastVer = mSetting.getInt(APP_LAST_VERSION,0);
+            if (lastVer < BuildConfig.VERSION_CODE){
+                UpdateDialogInfo dialog = new UpdateDialogInfo();
+                dialog.show(getSupportFragmentManager(),"DIALOG_UPDATE_INFO");
+            }
+        }else {
+            UpdateDialogInfo dialog = new UpdateDialogInfo();
+            dialog.show(getSupportFragmentManager(),"DIALOG_UPDATE_INFO");
+        }
+        SharedPreferences.Editor editor = mSetting.edit();
+        editor.putInt(APP_LAST_VERSION, BuildConfig.VERSION_CODE);
+        editor.apply();
     }
 }
