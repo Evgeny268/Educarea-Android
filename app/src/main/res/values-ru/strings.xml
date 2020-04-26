@@ -88,4 +88,6 @@
     <string name="can_not_edit_object">Вы можете редактировать только свои предметы</string>
     <string name="close">Закрыть</string>
     <string name="update_info">Информация об обновлении</string>
+    <string name="enter_the_code_above">Введите код выше</string>
+    <string name="wrong_code">Неверный код</string>
 </resources>

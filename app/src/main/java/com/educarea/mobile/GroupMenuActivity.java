@@ -64,11 +64,6 @@ public class GroupMenuActivity extends AppInetActivity implements MessageListene
         if (in!=null){
             if (in instanceof GroupPersons){
                 eduApp.getAppData().setGroupPersons((GroupPersons) in, GroupMenuActivity.this);
-            }else if (in instanceof TransferRequestAnswer){
-                if (((TransferRequestAnswer) in).request.equals(DELETE_GROUP)){
-                    startActivity(new Intent(GroupMenuActivity.this,GroupsListActivity.class));
-                    finish();
-                }
             }
             else eduApp.standartReactionOnAsnwer(data,GroupMenuActivity.this);
         }else eduApp.standartReactionOnAsnwer(data,GroupMenuActivity.this);
@@ -90,9 +85,9 @@ public class GroupMenuActivity extends AppInetActivity implements MessageListene
     }
 
     public void onClickDeleteGroup(View view) {
-        if (eduApp.moderator){
-            eduApp.sendTransfers(new TransferRequestAnswer(DELETE_GROUP,String.valueOf(group.groupId)));
-        }
+        Intent intent = new Intent(GroupMenuActivity.this, DeleteGroupActivity.class);
+        intent.putExtra(INTENT_GROUP, group);
+        startActivity(intent);
     }
 
     public void onClickOpenChannel(View view) {
