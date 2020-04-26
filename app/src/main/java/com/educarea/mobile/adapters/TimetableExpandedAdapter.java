@@ -101,7 +101,21 @@ public class TimetableExpandedAdapter extends RecyclerView.Adapter<TimetableExpa
                         groupPerson = groupPeople.get(i);
                     }
                 }
-                personName.setText(groupPerson.surname+" "+groupPerson.name+" "+groupPerson.patronymic);
+                if (groupPerson.surname == null && groupPerson.name == null && groupPerson.patronymic == null){
+                    personName.setText(itemView.getContext().getString(R.string.member)+" ID:"+groupPerson.groupPersonId);
+                }else {
+                    String allName = "";
+                    if (groupPerson.surname!=null){
+                        allName+=groupPerson.surname+" ";
+                    }
+                    if (groupPerson.name!=null){
+                        allName+=groupPerson.name+" ";
+                    }
+                    if (groupPerson.patronymic!=null){
+                        allName+=groupPerson.patronymic;
+                    }
+                    personName.setText(allName);
+                }
             }else {
                 personName.setText("");
             }
