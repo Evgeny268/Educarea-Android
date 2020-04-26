@@ -136,6 +136,21 @@ public class EditTimetableActivity extends AppInetActivity implements TypeReques
         for (int i = 0; i < persons.size(); i++) {
             GroupPerson teacher = persons.get(i);
             arr[i+1] = teacher.surname+" "+teacher.name+" "+teacher.patronymic;
+            if (teacher.surname == null && teacher.name == null && teacher.patronymic == null){
+                arr[i+1] = getString(R.string.member)+" ID:"+teacher.groupPersonId;
+            }else {
+                String allName = "";
+                if (teacher.surname!=null){
+                    allName+=teacher.surname+" ";
+                }
+                if (teacher.name!=null){
+                    allName+=teacher.name+" ";
+                }
+                if (teacher.patronymic!=null){
+                    allName+=teacher.patronymic;
+                }
+                arr[i+1] = allName;
+            }
         }
         return arr;
     }
