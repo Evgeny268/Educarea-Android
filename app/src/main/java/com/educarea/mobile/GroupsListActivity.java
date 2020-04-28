@@ -1,11 +1,13 @@
 package com.educarea.mobile;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -36,11 +38,14 @@ public class GroupsListActivity extends AppInetActivity implements MessageListen
     private LinearLayoutManager manager;
     private FloatingActionButton btnAddGroup;
     private Button btnInvites;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_groups_list);
+        toolbar = findViewById(R.id.toolbarGroupList);
+        setSupportActionBar(toolbar);
         eduApp = (EduApp)getApplicationContext();
         recyclerView = findViewById(R.id.recyclerMyGroups);
         btnAddGroup = findViewById(R.id.floatingButtonAddGroup);
@@ -65,6 +70,20 @@ public class GroupsListActivity extends AppInetActivity implements MessageListen
         if (!eduApp.getInetWorker().isOfflineMode()) {
             eduApp.sendTransfers(new TransferRequestAnswer(GET_MY_GROUPS));
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_group_list, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.menu_account_item) {
+            //TODO open account activity
+        }
+        return true;
     }
 
     @Override

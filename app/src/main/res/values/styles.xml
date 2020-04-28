@@ -9,4 +9,15 @@
         <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
     </style>
 
+    <style name="Toolbar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">?attr/actionBarSize</item>
+         <item name="theme">@style/ThemeOverlay.AppCompat.Light</item>
+        <item name="titleTextColor">@color/nearWhite</item>
+<!--        <item name="android:background">@color/colorAccent</item>-->
+        <item name="colorPrimary">@color/colorAccent</item>
+        <item name="tint">@color/nearWhite</item>
+        <item name="actionMenuTextColor">@color/nearWhite</item>
+    </style>
+
 </resources>

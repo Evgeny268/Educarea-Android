@@ -90,4 +90,5 @@
     <string name="update_info">Update info</string>
     <string name="enter_the_code_above">Enter the code above</string>
     <string name="wrong_code">Wrong code</string>
+    <string name="account">Account</string>
 </resources>

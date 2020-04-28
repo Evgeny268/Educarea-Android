@@ -21,13 +21,14 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerMyGroups"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_margin="10dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         app:layout_constraintBottom_toTopOf="@+id/buttonEnterCode"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbarGroupList" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingButtonAddGroup"
@@ -43,4 +44,15 @@
         app:layout_constraintBottom_toTopOf="@+id/buttonEnterCode"
         app:layout_constraintEnd_toEndOf="@+id/recyclerMyGroups"
         app:srcCompat="@drawable/ic_add_black_24dp" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarGroupList"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/Toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
