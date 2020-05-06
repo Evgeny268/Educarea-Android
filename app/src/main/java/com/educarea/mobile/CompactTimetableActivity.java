@@ -6,8 +6,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.educarea.mobile.adapters.TimetableCompactAdapter;
 
@@ -17,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import transfers.Group;
+import transfers.GroupPerson;
 import transfers.GroupPersons;
 import transfers.Timetable;
 import transfers.Timetables;
@@ -27,6 +31,7 @@ import transfers.TypeRequestAnswer;
 
 import static com.educarea.mobile.EduApp.INTENT_GROUP;
 import static com.educarea.mobile.EduApp.INTENT_GROUP_PERSONS;
+import static com.educarea.mobile.EduApp.INTENT_TIMETABLE;
 
 public class CompactTimetableActivity extends AppInetActivity implements TypeRequestAnswer, TimetableCompactAdapter.TimetableCompactClickListener {
 
@@ -34,6 +39,7 @@ public class CompactTimetableActivity extends AppInetActivity implements TypeReq
     private GroupPersons groupPersons;
     private Timetables timetables = null;
     private Calendar calendar;
+    private ArrayList<Timetable> dayTimetable;
 
     private RecyclerView recyclerView;
     private TimetableCompactAdapter adapter;
@@ -86,16 +92,48 @@ public class CompactTimetableActivity extends AppInetActivity implements TypeReq
 
     @Override
     public void onClickTimetableCompact(int position, View view) {
-
+        if (canModifyTimetable(dayTimetable.get(position))) {
+            Timetable timetable = dayTimetable.get(position);
+            Intent intent = new Intent(CompactTimetableActivity.this, EditTimetableActivity.class);
+            intent.putExtra(INTENT_GROUP, group);
+            intent.putExtra(INTENT_GROUP_PERSONS, groupPersons);
+            intent.putExtra(INTENT_TIMETABLE, timetable);
+            startActivity(intent);
+        }else {
+            Toast.makeText(this, getString(R.string.can_not_edit_object), Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
     public void onLongClickTimetableCompact(int position, View view) {
+        if (canModifyTimetable(dayTimetable.get(position))) {
+            showPopupMenu(view, position);
+        }else {
+            Toast.makeText(this, getString(R.string.can_not_edit_object), Toast.LENGTH_SHORT).show();
+        }
+    }
 
+    private void showPopupMenu(View v, final int position){
+        PopupMenu popupMenu = new PopupMenu(this,v);
+        popupMenu.inflate(R.menu.menu_delete);
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.menu_delete:
+                        Timetable timetable = dayTimetable.get(position);
+                        TransferRequestAnswer out = new TransferRequestAnswer(DELETE_TIMETABLE,String.valueOf(timetable.timetableId));
+                        eduApp.sendTransfers(out);
+                        return true;
+                }
+                return false;
+            }
+        });
+        popupMenu.show();
     }
 
     private void showCurrentDay(){
-        ArrayList<Timetable> dayTimetable = TimetableUtils.getTimetablesForDay(timetables.timetables,calendar);
+        dayTimetable = TimetableUtils.getTimetablesForDay(timetables.timetables,calendar);
         adapter.setTimetablesAndPersons(dayTimetable,groupPersons.persons);
         adapter.notifyDataSetChanged();
         SimpleDateFormat parser = new SimpleDateFormat("dd.MM.yyyy");
@@ -142,5 +180,11 @@ public class CompactTimetableActivity extends AppInetActivity implements TypeReq
         intent.putExtra(INTENT_GROUP_PERSONS,eduApp.getAppData().getGroupPersons(group.groupId));
         startActivity(intent);
     }
+
+    public boolean canModifyTimetable(Timetable timetable){
+        GroupPerson groupPerson = eduApp.getAppData().getUserGroups().getGroupPerson(group);
+        return timetable.groupPersonId == groupPerson.groupPersonId || groupPerson.moderator == 1;
+    }
+
 
 }
