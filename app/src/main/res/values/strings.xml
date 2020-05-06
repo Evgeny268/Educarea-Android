@@ -91,4 +91,6 @@
     <string name="enter_the_code_above">Enter the code above</string>
     <string name="wrong_code">Wrong code</string>
     <string name="account">Account</string>
+    <string name="logout">Logout</string>
+    <string name="close_other_session">Close other session</string>
 </resources>

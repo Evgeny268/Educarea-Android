@@ -81,7 +81,7 @@ public class GroupsListActivity extends AppInetActivity implements MessageListen
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.menu_account_item) {
-            //TODO open account activity
+            startActivity(new Intent(GroupsListActivity.this, AccountActivity.class));
         }
         return true;
     }

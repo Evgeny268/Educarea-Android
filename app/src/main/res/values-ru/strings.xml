@@ -91,4 +91,6 @@
     <string name="enter_the_code_above">Введите код выше</string>
     <string name="wrong_code">Неверный код</string>
     <string name="account">Аккаунт</string>
+    <string name="logout">Выйти из аккаунта</string>
+    <string name="close_other_session">Выйти с остальных устройств</string>
 </resources>
