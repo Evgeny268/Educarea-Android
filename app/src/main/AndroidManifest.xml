@@ -15,39 +15,52 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PersonCodeActivity"
+        <activity android:name=".AccountActivity"></activity>
+        <activity android:name=".DeleteGroupActivity" />
+        <activity
+            android:name=".PersonCodeActivity"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"></activity>
-        <activity android:name=".EnterCodeActivity"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".EnterCodeActivity"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"/>
-        <activity android:name=".ChannelActivity"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".ChannelActivity"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"/>
-        <activity android:name=".CompactTimetableActivity"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".CompactTimetableActivity"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"/>
-        <activity android:name=".AllTimetableActivity"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".AllTimetableActivity"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"/>
-        <activity android:name=".EditTimetableActivity"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".EditTimetableActivity"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"/>
-        <activity android:name=".PersonActivity"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".PersonActivity"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"/>
-        <activity android:name=".AddPersonActivity"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".AddPersonActivity"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"/>
-        <activity android:name=".PersonsActivity"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".PersonsActivity"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"/>
-        <activity android:name=".GroupMenuActivity"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".GroupMenuActivity"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"/>
-        <activity android:name=".AddGroupActivity"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".AddGroupActivity"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"/>
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".GroupsListActivity"
             android:screenOrientation="portrait"
@@ -70,6 +83,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <service
             android:name=".firebase.MyFirebaseService"
             android:enabled="true"
