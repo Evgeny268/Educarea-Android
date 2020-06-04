@@ -1,7 +1,6 @@
 package com.educarea.mobile;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,6 +27,7 @@ import transfers.ChannelMessages;
 import transfers.Group;
 import transfers.GroupPerson;
 import transfers.GroupPersons;
+import transfers.Message;
 import transfers.TransferRequestAnswer;
 import transfers.Transfers;
 import transfers.TransfersFactory;
@@ -119,7 +119,9 @@ public class ChannelActivity extends AppInetActivity implements TypeRequestAnswe
             }else if (in instanceof ChannelMessages){
                 ChannelMessages income = (ChannelMessages) in;
                 addNewChannelMessages(income.channelMessages);
-                adapter.setMessagesAndGroupPersons(messages,groupPersons.persons);
+                ArrayList<Message> channelMessages = new ArrayList<>();
+                channelMessages.addAll(messages);
+                adapter.setMessagesAndGroupPersons(channelMessages,groupPersons.persons);
                 if (newMessage){
                     adapter.notifyDataSetChanged();
                     recyclerView.scrollToPosition(messages.size()-1);
@@ -137,7 +139,7 @@ public class ChannelActivity extends AppInetActivity implements TypeRequestAnswe
 
     @Override
     public void onLongClickMessage(int position, View view) {
-        ChannelMessage message = messages.get(position);
+        Message message = messages.get(position);
         ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
         ClipData clip = ClipData.newPlainText(getString(R.string.copy_to_clip_board), message.text);
         clipboard.setPrimaryClip(clip);
@@ -150,7 +152,7 @@ public class ChannelActivity extends AppInetActivity implements TypeRequestAnswe
         ChannelMessage channelMessage = null;
         insertNum = 0;
         if (messages.size()>0){
-            channelMessage = messages.get(messages.size()-1);
+            channelMessage = (ChannelMessage) messages.get(messages.size()-1);
         }
         for (int i = 0; i < list.size(); i++) {
             if (!messages.contains(list.get(i))){
