@@ -15,17 +15,20 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import transfers.ChannelMessage;
 import transfers.GroupPerson;
+import transfers.Message;
+import transfers.StudentsChatMessage;
 
-public class MessageAdapter extends RecyclerView.Adapter{
-
+public class MessageAdapter extends RecyclerView.Adapter {
     private static final int VIEW_TYPE_ME = 0;
     private static final int VIEW_TYPE_STRANGER = 1;
+    private static final int VIEW_TYPE_SYSTEM = 2;
 
-    private ArrayList<ChannelMessage> messages;
-    private ArrayList<GroupPerson> groupPeople;
+    private List<Message> messages;
+    private List<GroupPerson> groupPeople;
     private Context context;
     private MessageClickListener listener;
     private int myId;
@@ -38,7 +41,7 @@ public class MessageAdapter extends RecyclerView.Adapter{
         groupPeople = new ArrayList<>();
     }
 
-    public void setMessagesAndGroupPersons(ArrayList<ChannelMessage> messages, ArrayList<GroupPerson> groupPeople){
+    public void setMessagesAndGroupPersons(List<Message> messages, List<GroupPerson> groupPeople){
         this.messages = messages;
         this.groupPeople = groupPeople;
     }
@@ -46,23 +49,41 @@ public class MessageAdapter extends RecyclerView.Adapter{
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view;
+        View view = null;
         if (viewType == VIEW_TYPE_ME){
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.my_message,parent,false);
-        }else {
+        }else if (viewType == VIEW_TYPE_STRANGER){
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.stranger_message,parent,false);
+        }else {
+            //TODO как только появятся системные сообщения, то дописать данную часть
         }
-        return new MessageHolder(view, listener);
+        return new MessageHolder(view, listener, viewType);
     }
 
     @Override
     public int getItemViewType(int position) {
-        ChannelMessage channelMessage = messages.get(position);
-        if (channelMessage.personFrom==myId){
-            return VIEW_TYPE_ME;
+        Message message = messages.get(position);
+        if (message instanceof ChannelMessage){
+            if (((ChannelMessage) message).personFrom==myId){
+                return VIEW_TYPE_ME;
+            }else {
+                return VIEW_TYPE_STRANGER;
+            }
+        }else if (message instanceof StudentsChatMessage){
+            if (((StudentsChatMessage) message).groupPersonId==myId){
+                return VIEW_TYPE_ME;
+            }else {
+                return VIEW_TYPE_STRANGER;
+            }
         }else {
-            return VIEW_TYPE_STRANGER;
+            return VIEW_TYPE_SYSTEM;
         }
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        Message message = messages.get(position);
+        ((MessageHolder) holder).bind(message);
     }
 
     @Override
@@ -70,50 +91,57 @@ public class MessageAdapter extends RecyclerView.Adapter{
         return messages.size();
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ChannelMessage channelMessage = messages.get(position);
-        ((MessageHolder) holder).bind(channelMessage);
-    }
-
     private class MessageHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener{
-        TextView personName;
-        TextView message;
-        TextView date;
-        MessageClickListener listener;
+        private int viewType;
+        private TextView personName;
+        private TextView messageText;
+        private TextView messageDate;
+        private MessageClickListener listener;
 
-        public MessageHolder(@NonNull View itemView, MessageClickListener listener) {
+        public MessageHolder(@NonNull View itemView, MessageClickListener listener, int viewType) {
             super(itemView);
             this.listener = listener;
+            this.viewType = viewType;
             personName = itemView.findViewById(R.id.message_person_name);
-            message = itemView.findViewById(R.id.message_text);
-            date = itemView.findViewById(R.id.message_time);
+            messageText = itemView.findViewById(R.id.message_text);
+            messageDate = itemView.findViewById(R.id.message_time);
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
         }
 
-        void bind(ChannelMessage channelMessage){
-            GroupPerson groupPerson = new GroupPerson();
-            groupPerson.surname = "";
-            groupPerson.patronymic = "";
-            groupPerson.name = "";
-            for (int i = 0; i < groupPeople.size(); i++) {
-                if (groupPeople.get(i).groupPersonId == channelMessage.personFrom){
-                    if (groupPeople.get(i).surname == null && groupPeople.get(i).name==null && groupPeople.get(i).patronymic==null){
-                        groupPerson.surname = context.getString(R.string.member)+" ID:"+groupPeople.get(i).groupPersonId;
-                    }else {
-                        if (groupPeople.get(i).surname != null)
-                            groupPerson.surname = groupPeople.get(i).surname;
-                        if (groupPeople.get(i).name != null)
-                            groupPerson.name = groupPeople.get(i).name;
-                        if (groupPeople.get(i).patronymic != null)
-                            groupPerson.patronymic = groupPeople.get(i).patronymic;
+        void bind(Message message){
+            if (viewType==0 || viewType==1){
+                int personId = 0;
+                if (message instanceof ChannelMessage){
+                    personId = ((ChannelMessage) message).personFrom;
+                }else if (message instanceof StudentsChatMessage){
+                    personId = ((StudentsChatMessage) message).groupPersonId;
+                }
+                GroupPerson groupPerson = new GroupPerson();
+                groupPerson.surname = "";
+                groupPerson.patronymic = "";
+                groupPerson.name = "";
+                for (int i = 0; i < groupPeople.size(); i++) {
+                    if (groupPeople.get(i).groupPersonId == personId){
+                        if (groupPeople.get(i).surname == null && groupPeople.get(i).name==null && groupPeople.get(i).patronymic==null){
+                            groupPerson.surname = context.getString(R.string.member)+" ID:"+groupPeople.get(i).groupPersonId;
+                        }else {
+                            if (groupPeople.get(i).surname != null)
+                                groupPerson.surname = groupPeople.get(i).surname;
+                            if (groupPeople.get(i).name != null)
+                                groupPerson.name = groupPeople.get(i).name;
+                            if (groupPeople.get(i).patronymic != null)
+                                groupPerson.patronymic = groupPeople.get(i).patronymic;
+                        }
                     }
                 }
+                String pName = groupPerson.surname+" "+groupPerson.name+" "+groupPerson.patronymic;
+                personName.setText(pName);
+                messageText.setText(message.text);
+                messageDate.setText(dateToString(message.date));
+            }else {
+                //TODO как только появятся системные сообщения, то дописать данную часть
             }
-            personName.setText(groupPerson.surname+" "+groupPerson.name+" "+groupPerson.patronymic);
-            message.setText(channelMessage.text);
-            date.setText(dateToString(channelMessage.date));
         }
 
         @Override
@@ -128,7 +156,7 @@ public class MessageAdapter extends RecyclerView.Adapter{
         }
     }
 
-    public interface MessageClickListener{
+    public interface MessageClickListener {
         void onClickMessage(int position, View view);
         void onLongClickMessage(int position, View view);
     }
