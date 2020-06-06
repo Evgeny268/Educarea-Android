@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.educarea.mobile.internet.MessageListener;
 
 import transfers.Group;
+import transfers.GroupPerson;
 import transfers.GroupPersons;
 import transfers.TransferRequestAnswer;
 import transfers.Transfers;
@@ -24,6 +25,7 @@ public class GroupMenuActivity extends AppInetActivity implements MessageListene
     private Group group;
     private TextView groupName;
     private Button deleteGroup;
+    private Button btnStudentChat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +35,7 @@ public class GroupMenuActivity extends AppInetActivity implements MessageListene
         eduApp = (EduApp)getApplicationContext();
         group = (Group) getIntent().getSerializableExtra(INTENT_GROUP);
         deleteGroup = findViewById(R.id.buttonDeleteGroup);
+        btnStudentChat = findViewById(R.id.buttonOpenStudentChat);
         if (group == null) onBackPressed();
         groupName.setText(group.name);
         if (eduApp.moderator){
@@ -41,6 +44,20 @@ public class GroupMenuActivity extends AppInetActivity implements MessageListene
             }
         }else {
             deleteGroup.setVisibility(View.GONE);
+        }
+        GroupPersons groupPersons = eduApp.getAppData().getGroupPersons();
+        GroupPerson me = null;
+        for (int i = 0; i < groupPersons.persons.size(); i++) {
+            GroupPerson current = groupPersons.persons.get(i);
+            if (current.userId==eduApp.getAppData().getUser().iduser){
+                me = current;
+            }
+        }
+        if (me!=null) {
+            if (me.personType == 1) {
+                btnStudentChat.setEnabled(false);
+                btnStudentChat.setVisibility(View.GONE);
+            }
         }
     }
 
@@ -88,6 +105,13 @@ public class GroupMenuActivity extends AppInetActivity implements MessageListene
 
     public void onClickOpenChannel(View view) {
         Intent intent = new Intent(GroupMenuActivity.this, ChannelActivity.class);
+        intent.putExtra(INTENT_GROUP,group);
+        intent.putExtra(INTENT_GROUP_PERSONS,eduApp.getAppData().getGroupPersons(group.groupId));
+        startActivity(intent);
+    }
+
+    public void onClickOpenStudentChat(View view) {
+        Intent intent = new Intent(GroupMenuActivity.this, StudentsChatActivity.class);
         intent.putExtra(INTENT_GROUP,group);
         intent.putExtra(INTENT_GROUP_PERSONS,eduApp.getAppData().getGroupPersons(group.groupId));
         startActivity(intent);

@@ -93,4 +93,6 @@
     <string name="account">Аккаунт</string>
     <string name="logout">Выйти из аккаунта</string>
     <string name="close_other_session">Выйти с остальных устройств</string>
+    <string name="students_chat">Чат учеников</string>
+    <string name="students_chat_channel_description">Уведомлять меня о новых сообщениях в чате для студентов</string>
 </resources>

@@ -93,4 +93,6 @@
     <string name="account">Account</string>
     <string name="logout">Logout</string>
     <string name="close_other_session">Close other session</string>
+    <string name="students_chat">Student\'s chat</string>
+    <string name="students_chat_channel_description">Notify me of new messages in student\'s chat</string>
 </resources>

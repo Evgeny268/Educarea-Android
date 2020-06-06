@@ -1,7 +1,4 @@
 <resources>
-    <string name="update_text">- Added the ability to sign out \n
-    - Added the ability to log out from all devices except the current one \n
-    - Now to delete a group you need to enter a confirmation code \n
-    - The display of the teacher\’s name in the schedule was fixed (if the name was not completely filled, then in some places the text "null" was displayed) \n
-    - Also, the display of the teacher\'s full name in the teacher\'s selection list in the schedule editing window has been fixed</string>
+    <string name="update_text">- Chat for students added \n
+    - The chat keyboard now only opens by clicking on the message input field \n</string>
 </resources>
