@@ -4,8 +4,7 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10dp"
-    android:background="@color/nearWhite">
+    android:padding="10dp">
 
     <TextView
         android:id="@+id/message_time"
@@ -48,7 +47,7 @@
             android:paddingTop="5dp"
             android:gravity="start"
             android:textSize="18sp"
-            android:textColor="@color/nearWhite"
+            android:textColor="@android:color/background_light"
             tools:text="Это большое длинное тестовое сообщение. Оно не должно заходить за экран, кроме того, оно не должно смещать время." />
     </LinearLayout>
 
