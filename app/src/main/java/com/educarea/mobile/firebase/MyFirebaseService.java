@@ -13,7 +13,6 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
-import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class MyFirebaseService extends FirebaseMessagingService {
     public MyFirebaseService() {

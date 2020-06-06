@@ -12,16 +12,19 @@ import androidx.core.app.NotificationManagerCompat;
 
 import com.educarea.mobile.MainActivity;
 import com.educarea.mobile.R;
+import com.educarea.mobile.StudentsChatActivity;
 
 import java.util.Map;
 
 public class NotifyWorker implements CloudMessageType{
 
     public static final String CHANNEL_GROUP_CHANNEL = "CHANNEL_GROUP_CHANNEL";
+    public static final String CHANNEL_STUDENTS_CHAT = "CHANNEL_STUDENTS_CHAT";
     public static final String CHANNEL_APP_NEWS = "CHANNEL_APP_NEWS";
 
     public static void createAppChannels(Context context){
         createGroupChannel(context);
+        createStudentsChatChannel(context);
         createAppNewsChannel(context);
     }
 
@@ -31,6 +34,20 @@ public class NotifyWorker implements CloudMessageType{
             String description = context.getApplicationContext().getString(R.string.group_channel_description);
             int importance = NotificationManager.IMPORTANCE_HIGH;
             NotificationChannel channel = new NotificationChannel(CHANNEL_GROUP_CHANNEL, name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
+    private static void createStudentsChatChannel(Context context){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = context.getApplicationContext().getString(R.string.students_chat);
+            String description = context.getApplicationContext().getString(R.string.students_chat_channel_description);
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_STUDENTS_CHAT, name, importance);
             channel.setDescription(description);
             // Register the channel with the system; you can't change the importance
             // or other notification behaviors after this
@@ -60,6 +77,8 @@ public class NotifyWorker implements CloudMessageType{
                 notifyAppNews(data, context);
             }else if (type.equals(channel_message)){
                 notifyChannelMessage(data, context);
+            } else if (type.equals(student_message)){
+                notifyStudentsChatMessage(data, context);
             }
         }
     }
@@ -109,5 +128,35 @@ public class NotifyWorker implements CloudMessageType{
                 .setAutoCancel(true);
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
         notificationManager.notify(2223, builder.build());
+    }
+
+    private static void notifyStudentsChatMessage(Map<String,String> data, Context context){
+        if (StudentsChatActivity.STUDENT_CHAT_OPEN){
+            return;
+        }
+        String message = data.get("message");
+        String group = data.get("group");
+        String who = data.get("who");
+        if (who==null){
+            who = "";
+        }else {
+            who=":"+data.get("who");
+        }
+        if (message == null || group == null) return;
+        Intent i = new Intent(context, MainActivity.class);
+        i.putExtra("Dialog",data.get("who"));
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pi = PendingIntent.getActivity(context, 0, i, PendingIntent.FLAG_UPDATE_CURRENT);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_STUDENTS_CHAT)
+                .setSmallIcon(R.drawable.ic_add_black_24dp)
+                .setContentTitle(context.getString(R.string.students_chat)+who)
+                .setContentText(group)
+                .setStyle(new NotificationCompat.BigTextStyle()
+                        .bigText(message))
+                .setPriority(NotificationCompat.PRIORITY_MAX)
+                .setContentIntent(pi)
+                .setAutoCancel(true);
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+        notificationManager.notify(2224, builder.build());
     }
 }
