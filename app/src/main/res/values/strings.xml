@@ -95,4 +95,13 @@
     <string name="close_other_session">Close other session</string>
     <string name="students_chat">Student\'s chat</string>
     <string name="students_chat_channel_description">Notify me of new messages in student\'s chat</string>
+    <string name="date">Date</string>
+    <string name="events">Events</string>
+    <string name="events_calendar">Calendar of events</string>
+    <string name="all_events">All events</string>
+    <string name="event_name">Event name</string>
+    <string name="event_about_text">Event about text</string>
+    <string name="event_channel_description">Notify me of new group events</string>
+    <string name="new_event">New event added</string>
+    <string name="date_and_time">Date and time</string>
 </resources>

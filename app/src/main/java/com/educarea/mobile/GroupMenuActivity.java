@@ -116,4 +116,11 @@ public class GroupMenuActivity extends AppInetActivity implements MessageListene
         intent.putExtra(INTENT_GROUP_PERSONS,eduApp.getAppData().getGroupPersons(group.groupId));
         startActivity(intent);
     }
+
+    public void onClickOpenEvents(View view) {
+        Intent intent = new Intent(GroupMenuActivity.this, EventsCalendarActivity.class);
+        intent.putExtra(INTENT_GROUP,group);
+        intent.putExtra(INTENT_GROUP_PERSONS,eduApp.getAppData().getGroupPersons(group.groupId));
+        startActivity(intent);
+    }
 }

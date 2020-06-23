@@ -1,4 +1,3 @@
 <resources>
- <string name="update_text"> - Добавлен чат для студентов \n
-  - Клавиатура в чате теперь открывается только по нажатию на поле ввода сообщения \n</string>
+ <string name="update_text"> - Добавлен календарь событий \n</string>
 </resources>

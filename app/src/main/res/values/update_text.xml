@@ -1,4 +1,3 @@
 <resources>
-    <string name="update_text">- Chat for students added \n
-    - The chat keyboard now only opens by clicking on the message input field \n</string>
+    <string name="update_text">- Add event calendar \n</string>
 </resources>

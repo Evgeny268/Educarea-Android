@@ -15,7 +15,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".StudentsChatActivity"></activity>
+        <activity android:name=".AllEventsActivity"></activity>
+        <activity android:name=".EventsCalendarActivity" />
+        <activity android:name=".AddEventActivity" />
+        <activity android:name=".StudentsChatActivity" />
         <activity android:name=".AccountActivity" />
         <activity android:name=".DeleteGroupActivity" />
         <activity

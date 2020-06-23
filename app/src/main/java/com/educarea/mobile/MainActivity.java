@@ -53,6 +53,7 @@ public class MainActivity extends AppInetActivity implements TypeRequestAnswer, 
     @Override
     protected void onStart() {
         super.onStart();
+        NotifyWorker.cancelAppNews(this);
         if (!eduApp.getInetWorker().isConnected()){
             eduApp.getInetWorker().connect();
         }else {

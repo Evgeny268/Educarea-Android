@@ -95,4 +95,13 @@
     <string name="close_other_session">Выйти с остальных устройств</string>
     <string name="students_chat">Чат учеников</string>
     <string name="students_chat_channel_description">Уведомлять меня о новых сообщениях в чате для студентов</string>
+    <string name="date">Дата</string>
+    <string name="events">События</string>
+    <string name="events_calendar">Календарь мероприятий</string>
+    <string name="all_events">Все события</string>
+    <string name="event_name">Название события</string>
+    <string name="event_about_text">Описание события</string>
+    <string name="event_channel_description">Уведомлять о новых событиях в группах</string>
+    <string name="new_event">Добавлено новое событие</string>
+    <string name="date_and_time">Дата и время</string>
 </resources>

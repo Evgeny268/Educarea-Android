@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 
+import transfers.EventList;
 import transfers.GroupPersons;
 import transfers.Timetables;
 import transfers.User;
@@ -24,11 +25,13 @@ public class AppData implements Serializable {
     private UserGroups userGroups = null;
     private GroupPersons groupPersons = null;
     private Timetables timetables = null;
+    private EventList eventList = null;
 
     public AppData() {
         userGroups = new UserGroups();
         groupPersons = new GroupPersons();
         timetables = new Timetables();
+        eventList = new EventList();
     }
 
     public User getUser() {
@@ -138,6 +141,7 @@ public class AppData implements Serializable {
                     this.userGroups = ((AppData) input).userGroups;
                     this.groupPersons = ((AppData) input).groupPersons;
                     this.timetables = ((AppData) input).timetables;
+                    this.eventList = ((AppData) input).eventList;
                 }
             }
         }catch (Exception e){
