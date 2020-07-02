@@ -1,3 +1,4 @@
 <resources>
- <string name="update_text"> - Добавлен календарь событий \n</string>
+ <string name="update_text"> - Добавлены личные сообщения\n
+ - Изменены цвета элементов в некоторых окнах приложения</string>
 </resources>

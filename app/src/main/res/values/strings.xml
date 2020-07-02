@@ -104,4 +104,10 @@
     <string name="event_channel_description">Notify me of new group events</string>
     <string name="new_event">New event added</string>
     <string name="date_and_time">Date and time</string>
+    <string name="messages">Messages</string>
+    <string name="chose_interlocutor">Chose interlocutor</string>
+    <string name="you">You</string>
+    <string name="new_message">new message</string>
+    <string name="personal_messages">Personal messages</string>
+    <string name="personal_message_channel_description">New private message notifications</string>
 </resources>

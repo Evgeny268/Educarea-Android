@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
-    android:layout_width="match_parent"
-    android:background="@color/colorPrimary">
+    android:layout_width="match_parent">
 
     <LinearLayout
         android:id="@+id/linearLayoutGroupMenu"
@@ -12,7 +11,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="10dp"
-        android:background="@color/colorPrimary"
         android:gravity="center_horizontal"
         android:orientation="vertical"
         tools:context=".GroupMenuActivity">
@@ -33,7 +31,7 @@
         <Button
             android:id="@+id/buttonOpenTimeTable"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="45dp"
             android:layout_marginStart="40dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="40dp"
@@ -47,7 +45,7 @@
         <Button
             android:id="@+id/buttonOpenEvents"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="45dp"
             android:layout_marginStart="40dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="40dp"
@@ -61,7 +59,7 @@
         <Button
             android:id="@+id/buttonOpenMembers"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="45dp"
             android:layout_marginStart="40dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="40dp"
@@ -75,7 +73,7 @@
         <Button
             android:id="@+id/buttonOpenChannel"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="45dp"
             android:layout_marginStart="40dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="40dp"
@@ -89,7 +87,7 @@
         <Button
             android:id="@+id/buttonOpenStudentChat"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="45dp"
             android:layout_marginStart="40dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="40dp"
@@ -101,9 +99,23 @@
             android:textColor="@color/colorPrimaryDark" />
 
         <Button
+            android:id="@+id/buttonPersonalMessages"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:background="@color/nearWhite"
+            android:onClick="onClickOpenPersonalMessages"
+            android:text="@string/messages"
+            android:textColor="@color/colorPrimaryDark" />
+
+        <Button
             android:id="@+id/buttonDeleteGroup"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="45dp"
             android:layout_marginStart="40dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="40dp"

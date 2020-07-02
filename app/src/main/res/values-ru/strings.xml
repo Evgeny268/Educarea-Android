@@ -104,4 +104,10 @@
     <string name="event_channel_description">Уведомлять о новых событиях в группах</string>
     <string name="new_event">Добавлено новое событие</string>
     <string name="date_and_time">Дата и время</string>
+    <string name="messages">Сообщения</string>
+    <string name="chose_interlocutor">Выбор собеседника</string>
+    <string name="you">Вы</string>
+    <string name="new_message">новое сообщение</string>
+    <string name="personal_messages">Личные сообщения</string>
+    <string name="personal_message_channel_description">Уведомления о новых личных сообщениях</string>
 </resources>

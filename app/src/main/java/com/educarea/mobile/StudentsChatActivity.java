@@ -72,7 +72,6 @@ public class StudentsChatActivity extends AppInetActivity implements MessageAdap
         group = (Group) getIntent().getSerializableExtra(INTENT_GROUP);
         groupPersons = (GroupPersons) getIntent().getSerializableExtra(INTENT_GROUP_PERSONS);
         if (group == null || groupPersons == null) onBackPressed();
-        chatMessages = new ArrayList<>();
         recyclerView = findViewById(R.id.recyclerViewMessage);
         btnSendText = findViewById(R.id.btnSendMessage);
         etMessage = findViewById(R.id.editTextMessage);
@@ -106,6 +105,7 @@ public class StudentsChatActivity extends AppInetActivity implements MessageAdap
     @Override
     protected void onStart() {
         super.onStart();
+        chatMessages = new ArrayList<>();
         STUDENT_CHAT_OPEN = true;
         eduApp.sendTransfers(new TransferRequestAnswer(GET_STUDENT_MESSAGE,
                 String.valueOf(group.groupId),String.valueOf(MESSAGE_GET_COUNT)));

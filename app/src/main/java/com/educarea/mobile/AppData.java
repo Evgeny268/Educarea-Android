@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 
 import transfers.EventList;
+import transfers.GroupPerson;
 import transfers.GroupPersons;
 import transfers.Timetables;
 import transfers.User;
@@ -65,6 +66,15 @@ public class AppData implements Serializable {
             }
         }
         return outPersons;
+    }
+
+    public GroupPerson getGroupPersonById(int groupPersonId){
+        for (GroupPerson groupPerson: groupPersons.persons){
+            if (groupPerson.groupPersonId == groupPersonId){
+                return groupPerson;
+            }
+        }
+        return null;
     }
 
     public void setGroupPersons(GroupPersons groupPersons, Context context) {

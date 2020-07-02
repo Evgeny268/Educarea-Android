@@ -20,6 +20,7 @@ import java.util.List;
 import transfers.ChannelMessage;
 import transfers.GroupPerson;
 import transfers.Message;
+import transfers.PersonalMessage;
 import transfers.StudentsChatMessage;
 
 public class MessageAdapter extends RecyclerView.Adapter {
@@ -75,7 +76,14 @@ public class MessageAdapter extends RecyclerView.Adapter {
             }else {
                 return VIEW_TYPE_STRANGER;
             }
-        }else {
+        }else if (message instanceof PersonalMessage){
+            if (((PersonalMessage) message).personFrom.equals(myId)){
+                return VIEW_TYPE_ME;
+            }else {
+                return VIEW_TYPE_STRANGER;
+            }
+        }
+        else {
             return VIEW_TYPE_SYSTEM;
         }
     }
@@ -116,6 +124,8 @@ public class MessageAdapter extends RecyclerView.Adapter {
                     personId = ((ChannelMessage) message).personFrom;
                 }else if (message instanceof StudentsChatMessage){
                     personId = ((StudentsChatMessage) message).groupPersonId;
+                }else if (message instanceof PersonalMessage){
+                    personId = ((PersonalMessage) message).personFrom;
                 }
                 GroupPerson groupPerson = new GroupPerson();
                 groupPerson.surname = "";

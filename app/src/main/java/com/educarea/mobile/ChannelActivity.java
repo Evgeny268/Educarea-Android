@@ -59,7 +59,6 @@ public class ChannelActivity extends AppInetActivity implements TypeRequestAnswe
         group = (Group) getIntent().getSerializableExtra(INTENT_GROUP);
         groupPersons = (GroupPersons) getIntent().getSerializableExtra(INTENT_GROUP_PERSONS);
         if (group == null || groupPersons == null) onBackPressed();
-        messages = new ArrayList<>();
         recyclerView = findViewById(R.id.recyclerViewChannelMessage);
         btnSendText = findViewById(R.id.btnSendMessage);
         etMessage = findViewById(R.id.editTextMessage);
@@ -107,6 +106,7 @@ public class ChannelActivity extends AppInetActivity implements TypeRequestAnswe
     @Override
     protected void onStart() {
         super.onStart();
+        messages = new ArrayList<>();
         eduApp.sendTransfers(new TransferRequestAnswer(GET_CHANNEL_MESSAGE,String.valueOf(group.groupId),String.valueOf(20)));
     }
 

@@ -10,6 +10,9 @@ import android.os.Build;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import com.educarea.mobile.AppData;
+import com.educarea.mobile.DialogActivity;
+import com.educarea.mobile.LastMessagesActivity;
 import com.educarea.mobile.MainActivity;
 import com.educarea.mobile.R;
 import com.educarea.mobile.StudentsChatActivity;
@@ -18,18 +21,24 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
+import transfers.GroupPerson;
+
 public class NotifyWorker implements CloudMessageType{
 
     public static final String CHANNEL_GROUP_CHANNEL = "CHANNEL_GROUP_CHANNEL";
     public static final String CHANNEL_STUDENTS_CHAT = "CHANNEL_STUDENTS_CHAT";
     public static final String CHANNEL_EVENT = "CHANNEL_EVENT";
+    public static final String CHANNEL_PERSONAL_MESSAGE = "CHANNEL_PERSONAL_MESSAGE";
     public static final String CHANNEL_APP_NEWS = "CHANNEL_APP_NEWS";
+
+    private static final int SHORT_MESSAGE_SIZE = 27;
 
     public static void createAppChannels(Context context){
         createGroupChannel(context);
         createStudentsChatChannel(context);
         createAppNewsChannel(context);
         createEventChannel(context);
+        createPersonalMessageChannel(context);
     }
 
     protected static void createGroupChannel(Context context){
@@ -88,6 +97,18 @@ public class NotifyWorker implements CloudMessageType{
         }
     }
 
+    protected static void createPersonalMessageChannel(Context context){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            CharSequence name = context.getApplicationContext().getString(R.string.personal_messages);
+            String description = context.getApplicationContext().getString(R.string.personal_message_channel_description);
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_PERSONAL_MESSAGE, name, importance);
+            channel.setDescription(description);
+            NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
     public static void parseCloudMessage(Map<String,String> data, Context context){
         String type = data.get("type");
         if (type!=null){
@@ -99,6 +120,8 @@ public class NotifyWorker implements CloudMessageType{
                 notifyStudentsChatMessage(data, context);
             } else if (type.equals(event)){
                 notifyEvent(data, context);
+            } else if (type.equals(channel_personal_message)){
+                notifyPersonalMessage(data, context);
             }
         }
     }
@@ -211,6 +234,45 @@ public class NotifyWorker implements CloudMessageType{
         notificationManager.notify(2224, builder.build());
     }
 
+    private static void notifyPersonalMessage(Map<String,String> data, Context context){
+        try {
+            AppData appData = new AppData();
+            appData.loadData(context);
+            String message = data.get("message");
+            String shortMessage = message;
+            if (shortMessage.length() > SHORT_MESSAGE_SIZE){
+                shortMessage = shortMessage.substring(0,SHORT_MESSAGE_SIZE)+"...";
+            }
+            int groupId = Integer.parseInt(data.get("group_id"));
+            if (LastMessagesActivity.messages_open_group!=null){
+                if (LastMessagesActivity.messages_open_group.equals(groupId)){
+                    return;
+                }
+            }
+            int groupPersonId = Integer.parseInt(data.get("groupPersonId"));
+            if (DialogActivity.personal_message_interlocutorId != null){
+                if (DialogActivity.personal_message_interlocutorId == groupPersonId){
+                    return;
+                }
+            }
+            GroupPerson person = appData.getGroupPersonById(groupPersonId);
+            String personName = getShortName(person, context);
+            Intent i = new Intent(context, MainActivity.class);
+            PendingIntent pi = PendingIntent.getActivity(context, 0, i, PendingIntent.FLAG_UPDATE_CURRENT);
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_PERSONAL_MESSAGE)
+                    .setSmallIcon(R.drawable.ic_add_black_24dp)
+                    .setContentTitle(personName)
+                    .setContentText(shortMessage)
+                    .setStyle(new NotificationCompat.BigTextStyle()
+                    .bigText(message))
+                    .setPriority(NotificationCompat.PRIORITY_MAX)
+                    .setContentIntent(pi)
+                    .setAutoCancel(true);
+            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+            notificationManager.notify(2226, builder.build());
+        }catch (Exception ignored){}
+    }
+
     public static void cancelChannelMessage(Context context){
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
         notificationManager.cancel(2223);
@@ -229,5 +291,43 @@ public class NotifyWorker implements CloudMessageType{
     public static void cancelAppNews(Context context){
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
         notificationManager.cancel(2222);
+    }
+
+    public static String getShortName(GroupPerson groupPerson, Context context){
+        if (groupPerson == null){
+            return "";
+        }
+        String name = "";
+        if (groupPerson.surname == null && groupPerson.name == null && groupPerson.patronymic == null){
+            name = context.getString(R.string.member)+" ID:"+groupPerson.groupPersonId;
+        }else {
+            if (groupPerson.surname != null){
+                if (!groupPerson.surname.equals("")){
+                    name+=groupPerson.surname;
+                }
+            }
+            if (groupPerson.name != null){
+                if (!groupPerson.name.equals("")){
+                    if (name.length()>0){
+                        name+=" "+groupPerson.name.substring(0,1).toUpperCase()+".";
+                    }else {
+                        name+=groupPerson.name;
+                    }
+                }
+            }
+            if (groupPerson.patronymic != null){
+                if (!groupPerson.patronymic.equals("")){
+                    if (name.length()>0){
+                        name+=" "+groupPerson.patronymic.substring(0,1).toUpperCase()+".";
+                    }else {
+                        name+=groupPerson.patronymic;
+                    }
+                }
+            }
+            if (name.equals("")){
+                name = context.getString(R.string.member)+" ID:"+groupPerson.groupPersonId;
+            }
+        }
+        return name;
     }
 }
