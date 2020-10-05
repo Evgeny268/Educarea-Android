@@ -133,7 +133,7 @@ public class CompactTimetableActivity extends AppInetActivity implements TypeReq
     }
 
     private void showCurrentDay(){
-        dayTimetable = TimetableUtils.getTimetablesForDay(timetables.timetables,calendar);
+        dayTimetable = new TimetableUtils().getTimetablesForDay(timetables.timetables,calendar);
         adapter.setTimetablesAndPersons(dayTimetable,groupPersons.persons);
         adapter.notifyDataSetChanged();
         SimpleDateFormat parser = new SimpleDateFormat("dd.MM.yyyy");

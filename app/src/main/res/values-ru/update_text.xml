@@ -1,4 +1,3 @@
 <resources>
- <string name="update_text"> - Добавлены личные сообщения\n
- - Изменены цвета элементов в некоторых окнах приложения</string>
+ <string name="update_text"> - Исправлена четность недель</string>
 </resources>
